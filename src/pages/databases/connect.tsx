@@ -11,6 +11,10 @@ export async function loader({ request }) {
   }
 
   const remoteName = url.searchParams.get("remoteName");
+  const sanitizedRemoteName = remoteName
+    .replace(/^[^a-zA-Z0-9]+/g, "")
+    .replace(/[^a-zA-Z0-9]+/g, "_");
+
   const endpoint = url.searchParams.get("endpoint") || DEFAULT_ENDPOINT;
 
   const syncDb = fireproof(SYNC_DB_NAME);
@@ -21,10 +25,12 @@ export async function loader({ request }) {
   if (result.rows.length === 0) {
     const ok = await syncDb.put({
       remoteName,
+      sanitizedRemoteName,
       localName,
       endpoint,
       firstConnect: true,
     });
+    console.log(ok);
   } else {
     const doc = result.rows[0].doc;
     console.log(doc);
@@ -32,7 +38,7 @@ export async function loader({ request }) {
     // await syncDb.put({ ...doc, endpoint, lastConnect: new Date() });
   }
 
-  return redirect(`/fp/databases/${remoteName}`);
+  return redirect(`/fp/databases/${sanitizedRemoteName}`);
 }
 
 export default function DatabasesConnect() {

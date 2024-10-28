@@ -150,9 +150,7 @@ export default function Layout() {
                 <div key={db.name}>
                   <div className="flex items-center justify-between w-full">
                     <button
-                      onClick={() =>
-                        navigateToDatabase(db.name.replaceAll("_", "-"))
-                      }
+                      onClick={() => navigateToDatabase(db.name)}
                       className="flex-grow text-left rounded px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-muted-foreground"
                     >
                       <span title={db.name}>{truncateDbName(db.name, 20)}</span>

@@ -19,8 +19,6 @@ export default function Show() {
 }
 
 function TableView({ name }: { name: string }) {
-  // Ugly hack for now, need to match the sanitazition in indexeddb gateway
-  name = name.replaceAll("_", "-");
   const { useLiveQuery, database } = useFireproof(name);
   const [showConnectionInfo, setShowConnectionInfo] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
@@ -32,17 +30,21 @@ function TableView({ name }: { name: string }) {
   const myPetnames = usePetnameLiveQuery<{
     localName: string;
     endpoint: string;
-  }>("remoteName", {
+    remoteName: string;
+  }>("sanitizedRemoteName", {
     key: name,
   });
 
+  console.log(myPetnames);
+
   const petName = myPetnames.docs[0]?.localName || "";
 
-  let connection;
+  let connection, remoteName;
   if (myPetnames.docs.length > 0) {
     const endpoint = myPetnames.docs[0].endpoint;
+    remoteName = myPetnames.docs[0].remoteName;
     if (endpoint) {
-      connection = rawConnect(database as any, name, endpoint);
+      connection = rawConnect(database as any, remoteName, endpoint);
     }
   }
 
@@ -79,7 +81,7 @@ function TableView({ name }: { name: string }) {
   const currentHost = window.location.origin;
   const currentEndpoint = myPetnames.docs[0]?.endpoint || "";
   const currentLocalName = myPetnames.docs[0]?.localName || "";
-  const currentRemoteName = name;
+  const currentRemoteName = myPetnames.docs[0]?.remoteName || "";;
 
   const connectionUrl = `${currentHost}/fp/databases/connect?endpoint=${encodeURIComponent(
     currentEndpoint
