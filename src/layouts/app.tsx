@@ -1,8 +1,11 @@
+import { createClient } from "@workos-inc/authkit-js";
+
 import React, { useEffect, useState } from "react";
 import {
   Link,
   NavLink,
   Outlet,
+  redirect,
   useLoaderData,
   useNavigate,
   useParams,
@@ -17,9 +20,14 @@ const reservedDbNames: string[] = [
 ];
 
 export async function loader() {
-  console.log("loading databases");
+  const client = await createClient("client_01JBMKV33K949QXDRF5EAHPSGK");
+  if (!client.getUser()) {
+    await client.signIn();
+    return redirect("/login");
+  }
+  
   const databases = await getIndexedDBNamesWithQueries();
-  return databases;
+  return { databases, user: client.getUser() };
 }
 
 async function getIndexedDBNamesWithQueries(): Promise<
@@ -60,7 +68,7 @@ export function truncateDbName(name: string, maxLength: number) {
 }
 
 export default function Layout() {
-  const databases = useLoaderData<{ name: string; queries: any[] }[]>();
+  const { databases, user } = useLoaderData<{ databases: { name: string; queries: any[] }[], user: any }>();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
@@ -339,10 +347,22 @@ export default function Layout() {
                 </svg>
               )}
             </button>
+            <div className="flex items-center gap-2">
+              {user && (
+                <img
+                  src={
+                    user.profilePictureUrl ||
+                    "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp"
+                  }
+                  alt={user.firstName || "User profile"}
+                  className="w-8 h-8 rounded-full"
+                />
+              )}
+            </div>
           </div>
         </header>
         <main className="flex-1 overflow-y-auto p-6 md:p-10">
-          <Outlet />
+          <Outlet context={{ user }} />
         </main>
       </div>
     </div>
