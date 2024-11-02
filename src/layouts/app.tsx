@@ -20,12 +20,12 @@ const reservedDbNames: string[] = [
 ];
 
 export async function loader() {
-  const client = await createClient("client_01JBMKV33K949QXDRF5EAHPSGK");
+  const client = await createClient(import.meta.env.VITE_WORKOS_CLIENTID);
   if (!client.getUser()) {
     await client.signIn();
     return redirect("/login");
   }
-  
+
   const databases = await getIndexedDBNamesWithQueries();
   return { databases, user: client.getUser() };
 }
@@ -68,7 +68,10 @@ export function truncateDbName(name: string, maxLength: number) {
 }
 
 export default function Layout() {
-  const { databases, user } = useLoaderData<{ databases: { name: string; queries: any[] }[], user: any }>();
+  const { databases, user } = useLoaderData<{
+    databases: { name: string; queries: any[] }[];
+    user: any;
+  }>();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
