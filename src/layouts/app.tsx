@@ -19,10 +19,10 @@ const reservedDbNames: string[] = [
   "fp.fp_sync",
 ];
 
-export async function loader() {
+export async function loader({ request }) {
   const client = await createClient(import.meta.env.VITE_WORKOS_CLIENTID);
   if (!client.getUser()) {
-    await client.signIn();
+    await client.signIn({ state: { next_url: window.location.href } });
     return redirect("/login");
   }
 
