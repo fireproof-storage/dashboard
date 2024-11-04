@@ -26,6 +26,16 @@ export async function loader({ request }) {
     return redirect("/login");
   }
 
+  const url = new URL(request.url);
+  const state = url.searchParams.get("state");
+  if (state) {
+    const nextURL = JSON.parse(state).next_url;
+    console.log(nextURL);
+    if (nextURL) {
+      return redirect(nextURL);
+    }
+  }
+
   const databases = await getIndexedDBNamesWithQueries();
   return { databases, user: client.getUser() };
 }
