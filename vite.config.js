@@ -24,7 +24,8 @@ export default defineConfig({
     minifyIdentifiers: false,
   },
   build: {
-    sourcemap: true
+    sourcemap: true,
+    target: "esnext",
   },
   plugins: [
     rollupReplace({
