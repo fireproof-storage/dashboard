@@ -23,6 +23,9 @@ export default defineConfig({
   esbuild: {
     minifyIdentifiers: false,
   },
+  build: {
+    sourcemap: true
+  },
   plugins: [
     rollupReplace({
       preventAssignment: true,
