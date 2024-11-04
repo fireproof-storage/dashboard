@@ -1,10 +1,9 @@
-import { createClient } from "@workos-inc/authkit-js";
 import React from "react";
+import { authProvider } from "../auth";
 
 export async function loader({ request }) {
-  const client = await createClient(import.meta.env.VITE_WORKOS_CLIENTID);
   const url = new URL(request.url);
-  await client.signIn({
+  await authProvider.signIn({
     state: { next_url: url.searchParams.get("next_url") },
   });
   return null;

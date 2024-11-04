@@ -1,5 +1,3 @@
-import { createClient } from "@workos-inc/authkit-js";
-
 import React, { useEffect, useState } from "react";
 import {
   Link,
@@ -11,6 +9,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { fireproof } from "use-fireproof";
+import { authResult } from "../auth";
 import { SYNC_DB_NAME } from "../pages/databases/show";
 
 const reservedDbNames: string[] = [
@@ -20,15 +19,20 @@ const reservedDbNames: string[] = [
 ];
 
 export async function loader({ request }) {
-  const client = await createClient(import.meta.env.VITE_WORKOS_CLIENTID);
-  if (!client.getUser()) {
+  if (!authResult.user) {
     return redirect(
       `/login?next_url=${encodeURIComponent(window.location.href)}`
     );
   }
 
+  if (authResult.nextUrl) {
+    const redirectURL = authResult.nextUrl;
+    authResult.nextUrl = null;
+    return redirect(redirectURL);
+  }
+
   const databases = await getIndexedDBNamesWithQueries();
-  return { databases, user: client.getUser() };
+  return { databases, user: authResult.user };
 }
 
 async function getIndexedDBNamesWithQueries(): Promise<

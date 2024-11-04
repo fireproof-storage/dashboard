@@ -18,7 +18,6 @@ import DatabasesShow from "./pages/databases/show";
 import DocsShow from "./pages/docs/show";
 import Index, { loader as indexLoader } from "./pages/index";
 
-import { AuthKitProvider } from "@workos-inc/authkit-react";
 import DatabasesConnect, {
   loader as connectLoader,
 } from "./pages/databases/connect";
@@ -56,11 +55,7 @@ const rootElement = import.meta.env.VITE_CHROME_EXTENSION
   : document.getElementById("root");
 
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(
-      <AuthKitProvider clientId={import.meta.env.VITE_WORKOS_CLIENTID}>
-        <RouterProvider router={router} />
-      </AuthKitProvider>
-  );
+  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
 } else {
   console.error("Root element not found");
 }
