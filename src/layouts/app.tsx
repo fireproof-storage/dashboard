@@ -27,7 +27,7 @@ export async function loader({ request }) {
   }
 
   const databases = await getIndexedDBNamesWithQueries();
-  return { databases, user: client.getUser() };
+  return { databases, user: null };
 }
 
 async function getIndexedDBNamesWithQueries(): Promise<
