@@ -22,7 +22,9 @@ const reservedDbNames: string[] = [
 export async function loader({ request }) {
   const client = await createClient(import.meta.env.VITE_WORKOS_CLIENTID);
   if (!client.getUser()) {
-    return redirect("/login");
+    return redirect(
+      `/login?next_url=${encodeURIComponent(window.location.href)}`
+    );
   }
 
   const databases = await getIndexedDBNamesWithQueries();

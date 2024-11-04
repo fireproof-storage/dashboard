@@ -57,11 +57,9 @@ const rootElement = import.meta.env.VITE_CHROME_EXTENSION
 
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
-    <React.StrictMode>
       <AuthKitProvider clientId={import.meta.env.VITE_WORKOS_CLIENTID}>
         <RouterProvider router={router} />
       </AuthKitProvider>
-    </React.StrictMode>
   );
 } else {
   console.error("Root element not found");

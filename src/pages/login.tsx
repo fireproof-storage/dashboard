@@ -3,7 +3,10 @@ import React from "react";
 
 export async function loader({ request }) {
   const client = await createClient(import.meta.env.VITE_WORKOS_CLIENTID);
-  await client.signIn({ state: { next_url: window.location.href } });
+  const url = new URL(request.url);
+  await client.signIn({
+    state: { next_url: url.searchParams.get("next_url") },
+  });
   return null;
 }
 
