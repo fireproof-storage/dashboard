@@ -22,13 +22,13 @@ import { AuthKitProvider } from "@workos-inc/authkit-react";
 import DatabasesConnect, {
   loader as connectLoader,
 } from "./pages/databases/connect";
+import Login, { loader as loginLoader } from "./pages/login";
 import "./styles/tailwind.css";
-import Login from "./pages/login";
 
 const routes = createRoutesFromElements(
   <Route>
     <Route path="/" element={<Index />} loader={indexLoader} />
-    <Route path="/login" element={<Login />} />
+    <Route path="/login" element={<Login />} loader={loginLoader} />
     <Route path="/fp/databases" element={<App />} loader={appLoader}>
       <Route index element={<DatabasesIndex />} />
       <Route path="new" element={<DatabasesNew />} action={newDatabaseAction} />
