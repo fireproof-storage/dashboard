@@ -18,14 +18,17 @@ import DatabasesShow from "./pages/databases/show";
 import DocsShow from "./pages/docs/show";
 import Index, { loader as indexLoader } from "./pages/index";
 
+import { AuthKitProvider } from "@workos-inc/authkit-react";
 import DatabasesConnect, {
   loader as connectLoader,
 } from "./pages/databases/connect";
 import "./styles/tailwind.css";
+import Login from "./pages/login";
 
 const routes = createRoutesFromElements(
   <Route>
     <Route path="/" element={<Index />} loader={indexLoader} />
+    <Route path="/login" element={<Login />} />
     <Route path="/fp/databases" element={<App />} loader={appLoader}>
       <Route index element={<DatabasesIndex />} />
       <Route path="new" element={<DatabasesNew />} action={newDatabaseAction} />
@@ -55,7 +58,9 @@ const rootElement = import.meta.env.VITE_CHROME_EXTENSION
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <AuthKitProvider clientId={import.meta.env.VITE_WORKOS_CLIENTID}>
+        <RouterProvider router={router} />
+      </AuthKitProvider>
     </React.StrictMode>
   );
 } else {
