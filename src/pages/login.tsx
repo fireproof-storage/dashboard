@@ -1,8 +1,9 @@
+import { createClient } from "@workos-inc/authkit-js";
 import React from "react";
-import { redirect } from "react-router-dom";
 
 export async function loader({ request }) {
-  
+  const client = await createClient(import.meta.env.VITE_WORKOS_CLIENTID);
+  await client.signIn({ state: { next_url: window.location.href } });
   return null;
 }
 
