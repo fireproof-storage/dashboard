@@ -79,7 +79,7 @@ export default function Layout() {
     const darkModePreference = localStorage.getItem("darkMode");
     return darkModePreference === "true";
   });
-  const [showEmailModal, setShowEmailModal] = useState(true);
+  const [showEmailModal, setShowEmailModal] = useState(user.publicMetadata.marketingOptIn === undefined);
   const [emailPreference, setEmailPreference] = useState(false);
 
   useEffect(() => {
@@ -112,9 +112,19 @@ export default function Layout() {
 
   const handleEmailPreference = async () => {
     try {
-      // Here you would update the user's email preference in your backend
-      // await updateUserEmailPreference(user.id, emailPreference);
+      fetch(import.meta.env.VITE_EMAIL_PREFERENCE_ENDPOINT, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          optIn: emailPreference, userId: user.id
+        })
+      });
+      user.publicMetadata.marketingOptin = emailPreference;
       setShowEmailModal(false);
+     
     } catch (error) {
       console.error("Error updating email preference:", error);
     }
@@ -132,7 +142,7 @@ export default function Layout() {
         <div className="fixed inset-0 bg-[--background]/80 backdrop-blur-sm z-50 flex items-center justify-center">
           <div className="bg-[--background] border border-[--border] p-6 rounded-lg shadow-lg max-w-md w-full">
             <h2 className="text-xl font-semibold text-[--foreground] mb-4">Email Preferences</h2>
-            <p className="mb-4 text-[--muted-foreground]">Would you like to receive marketing emails from us?</p>
+            <p className="mb-4 text-[--muted-foreground]">Would you like to receive emails from us?</p>
             <div className="flex items-start gap-2 mb-6">
               <input
                 type="checkbox"
@@ -142,17 +152,10 @@ export default function Layout() {
                 className="mt-1"
               />
               <label htmlFor="emailPreference" className="text-[--muted-foreground]">
-                Yes, I'd like to receive (occasional, genuinely informative) marketing emails from Fireproof.
+                Yes, I'd like to receive (occasional, genuinely informative) emails from Fireproof.
               </label>
             </div>
             <div className="flex justify-end gap-2">
-              <button
-                type="button"
-                onClick={() => setShowEmailModal(false)}
-                className="px-4 py-2 bg-[--muted] text-[--muted-foreground] rounded hover:bg-[--muted]/80"
-              >
-                Skip
-              </button>
               <button
                 type="button"
                 onClick={handleEmailPreference}
