@@ -9,6 +9,19 @@ export default {
         body: ["var(--font-body)", ...fontFamily.mono],
       },
       colors: {
+        "fp-p": "var(--fp-color-primary)",
+        "fp-s": "var(--fp-color-secondary)",
+        "fp-a-00": "var(--fp-color-accent-00)",
+        "fp-a-01": "var(--fp-color-accent-01)",
+        "fp-a-02": "var(--fp-color-accent-02)",
+        "fp-a-03": "var(--fp-color-accent-03)",
+        "fp-dec-00": "var(--fp-color-decorative-00)",
+        "fp-dec-01": "var(--fp-color-decorative-01)",
+        "fp-bg-00": "var(--fp-color-background-00)",
+        "fp-bg-01": "var(--fp-color-background-01)",
+        "fp-bg-02": "var(--fp-color-background-02)",
+        "fp-dang": "var(--fp-color-danger)",
+ 
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
@@ -48,6 +61,8 @@ export default {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
         sm: `calc(var(--radius) - 4px)`,
+        "fp-s": "4px",
+        "fp-l": "16px",
       },
       keyframes: {
         "accordion-down": {
