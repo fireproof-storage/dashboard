@@ -79,6 +79,8 @@ export default function Layout() {
     const darkModePreference = localStorage.getItem("darkMode");
     return darkModePreference === "true";
   });
+  const [showEmailModal, setShowEmailModal] = useState(user.publicMetadata.marketingOptIn === undefined);
+  const [emailPreference, setEmailPreference] = useState(false);
 
   useEffect(() => {
     if (params.name) {
@@ -108,6 +110,26 @@ export default function Layout() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const handleEmailPreference = async () => {
+    try {
+      fetch(import.meta.env.VITE_EMAIL_PREFERENCE_ENDPOINT, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          optIn: emailPreference, userId: user.id
+        })
+      });
+      user.publicMetadata.marketingOptin = emailPreference;
+      setShowEmailModal(false);
+     
+    } catch (error) {
+      console.error("Error updating email preference:", error);
+    }
+  };
+
   const navLinks = [
     { to: "", label: "All Documents" },
     { to: "/history", label: "History" },
@@ -116,6 +138,36 @@ export default function Layout() {
 
   return (
     <div className="flex h-screen w-full overflow-hidden">
+      {showEmailModal && (
+        <div className="fixed inset-0 bg-[--background]/80 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="bg-[--background] border border-[--border] p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h2 className="text-xl font-semibold text-[--foreground] mb-4">Email Preferences</h2>
+            <p className="mb-4 text-[--muted-foreground]">Would you like to receive emails from us?</p>
+            <div className="flex items-start gap-2 mb-6">
+              <input
+                type="checkbox"
+                id="emailPreference"
+                checked={emailPreference}
+                onChange={(e) => setEmailPreference(e.target.checked)}
+                className="mt-1"
+              />
+              <label htmlFor="emailPreference" className="text-[--muted-foreground]">
+                Yes, I'd like to receive (occasional, genuinely informative) emails from Fireproof.
+              </label>
+            </div>
+            <div className="flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={handleEmailPreference}
+                className="px-4 py-2 bg-[--accent] text-[--accent-foreground] rounded hover:bg-[--accent]/80"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Mobile Menu Button - Hidden when sidebar is open */}
       {!isSidebarOpen && (
         <button
