@@ -13,26 +13,26 @@ export default function DynamicTable({
   const navigate = useNavigate();
 
   return (
-    <div className="relative mt-4 overflow-x-scroll">
-      <table className="w-full text-sm text-left text-[--muted-foreground] border-collapse">
-        <thead className="text-xs text-[--foreground] bg-[--muted] relative z-10">
+    <div className="relative mt-4 pb-[8px] overflow-x-scroll">
+      <table className="w-full text-left text-fp-p border-collapse">
+        <thead className="text-[11px] uppercase opacity-60 relative z-10">
           <tr key={"header" + Math.random()}>
             {headers.map((header: string) => (
               <th
                 key={header}
                 scope="col"
-                className="px-6 py-3 border-b-2 border-[--border]"
+                className="px-[15px] py-[12px] font-medium"
               >
                 {header === '_id' ? 'document id' : header}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="bg-fp-bg-00 border border-fp-dec-00 font-medium">
           {rows.map((fields: any) => (
             <tr
               key={fields._id}
-              className="bg-[--background] hover:bg-[--secondary] border-b border-[--border] cursor-pointer"
+              className="hover:bg-fp-bg-02 border-b border-fp-dec-00 cursor-pointer"
               onClick={() => {
                 navigate(`/fp/databases/${dbName}/docs/${fields._id}`);
               }}
@@ -42,12 +42,12 @@ export default function DynamicTable({
                   <th
                     key={header}
                     scope="row"
-                    className="px-6 py-4 font-medium text-inherit whitespace-nowrap"
+                    className="px-[15px] py-[12px] text-inherit font-medium whitespace-nowrap"
                   >
                     {formatTableCellContent(fields[header])}
                   </th>
                 ) : (
-                  <td key={header} className="px-6 py-4">
+                  <td key={header} className="px-[15px] py-[12px]">
                     {formatTableCellContent(fields[header])}
                   </td>
                 )

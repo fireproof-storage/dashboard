@@ -23,37 +23,35 @@ export default function New() {
   };
 
   return (
-    <div className="bg-[--muted] shadow sm:rounded-lg">
-      <div className="px-4 py-5 sm:p-6">
-        <h3 className="text-base font-semibold leading-6 text-[--foreground]">
-          New Database Name:
-        </h3>
+    <div className="px-[28px] py-[45px] bg-fp-bg-01 rounded-fp-l text-fp-p">
+      <h3 className="text-fp-p font-semibold text-[20px]">
+        New Database Name:
+      </h3>
 
-        <Form
-          onSubmit={handleSubmit(onSubmit)}
-          className="mt-5 sm:flex sm:items-center"
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mt-5 sm:flex"
+      >
+        <div className="w-full sm:max-w-xs">
+          <label htmlFor="dbName" className="sr-only">
+            Database Name
+          </label>
+          <input
+            id="dbName"
+            {...register("dbName", { required: true })}
+            type="text"
+            placeholder="New database name..."
+            autoFocus
+            className="w-full py-2 px-3 bg-fp-bg-00 border border-fp-dec-00 rounded-fp-s text-sm font-medium text-fp-p placeholder-fp-p placeholder:opacity-50 focus:outline-none focus:ring-1 focus:ring-fp-dec-01 focus:border-transparent transition duration-200 ease-in-out"
+          />
+        </div>
+        <button
+          type="submit"
+          className="mt-[14px] inline-flex w-full h-[38px] items-center justify-center rounded-fp-s bg-fp-p px-[40px] text-sm font-medium text-fp-bg-00 shadow-sm hover:bg-[--accent]/80 transition-colors sm:ml-3 sm:mt-0 sm:w-auto"
         >
-          <div className="w-full sm:max-w-xs">
-            <label htmlFor="dbName" className="sr-only">
-              Database Name
-            </label>
-            <input
-              id="dbName"
-              {...register("dbName", { required: true })}
-              type="text"
-              placeholder="New database name"
-              autoFocus
-              className="w-full py-2 px-3 bg-[--background] border border-[--border] rounded text-sm font-medium text-[--foreground] placeholder-[--muted-foreground] focus:outline-none focus:ring-1 focus:ring-[--ring] focus:border-transparent transition duration-200 ease-in-out"
-            />
-          </div>
-          <button
-            type="submit"
-            className="mt-3 inline-flex w-full items-center justify-center rounded bg-[--accent] px-3 py-2 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-[--accent]/80 transition-colors sm:ml-3 sm:mt-0 sm:w-auto"
-          >
-            Create
-          </button>
-        </Form>
-      </div>
+          Create
+        </button>
+      </Form>
     </div>
   );
 }
