@@ -21,7 +21,7 @@ export default function DynamicTable({
               <th
                 key={header}
                 scope="col"
-                className="px-[15px] py-[12px] font-medium"
+                className="px-[15px] py-[10px] font-semibold"
               >
                 {header === '_id' ? 'document id' : header}
               </th>

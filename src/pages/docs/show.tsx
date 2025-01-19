@@ -48,9 +48,9 @@ export default function Document() {
   const title = id ? `Edit document: ${_id}` : "Create new document";
 
   return (
-    <div className="p-6 bg-[--muted]">
+    <div className="p-6 bg-fp-bg-01">
       <div className="flex justify-between items-center mb-4">
-        <nav className="text-lg text-[--muted-foreground]">
+        <nav className="text-lg text-fp-p">
           <Link
             to={`/fp/databases/${name}`}
             className="font-medium text-[--foreground] hover:underline"

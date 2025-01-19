@@ -239,7 +239,7 @@ export default function Layout() {
           <nav className="grid gap-4 px-[20px] py-4 font-medium">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-[16px]">
-                <span className="font-semibold text-fp-s">Databases</span>
+                <span className="font-semibold text-fp-dec-01 text-[11px] uppercase">Databases</span>
               </div>
               <Link
                 data-id="15"
