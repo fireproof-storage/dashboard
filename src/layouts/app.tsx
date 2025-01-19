@@ -21,7 +21,7 @@ const reservedDbNames: string[] = [
 export async function loader({ request }) {
   if (!authResult.user) {
     return redirect(
-      `/login?next_url=${encodeURIComponent(window.location.href)}`
+      `/login?next_url=${encodeURIComponent(window.location.href)}`,
     );
   }
 
@@ -39,7 +39,7 @@ async function getIndexedDBNamesWithQueries(): Promise<
         (db) =>
           db.name!.startsWith("fp.") &&
           !db.name!.endsWith("_queries") &&
-          !reservedDbNames.includes(db.name!)
+          !reservedDbNames.includes(db.name!),
       )
       .map((db) => db.name!.substring(3));
 
@@ -51,7 +51,7 @@ async function getIndexedDBNamesWithQueries(): Promise<
         const queries = allDocs.rows.map((row) => row.value);
 
         return { name: dbName, queries };
-      })
+      }),
     );
 
     return dbsWithQueries;
@@ -137,7 +137,7 @@ export default function Layout() {
   ];
 
   return (
-    <div className="flex h-screen w-full overflow-hidden">
+    <div className="flex h-screen w-full overflow-hidden bg-fp-bg-00">
       {showEmailModal && (
         <div className="fixed inset-0 bg-[--background]/80 backdrop-blur-sm z-50 flex items-center justify-center">
           <div className="bg-[--background] border border-[--border] p-6 rounded-lg shadow-lg max-w-md w-full">
@@ -172,36 +172,37 @@ export default function Layout() {
       {!isSidebarOpen && (
         <button
           onClick={toggleSidebar}
-          className="md:hidden absolute top-2 left-6 z-50 p-2 rounded-md bg-[--muted]"
+          className="md:hidden absolute top-2 left-6 z-50 rounded-md"
         >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
+            className="text-fp-p"
+            width="36"
+            height="36"
+            viewBox="0 0 36 36"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
+            <path d="M4.5 18H31.5"/>
+            <path d="M4.5 9H31.5" />
+            <path d="M4.5 27H31.5" />
           </svg>
         </button>
       )}
 
       {/* Sidebar */}
       <div
-        className={`fixed md:static inset-0 z-40 w-[280px] transform transition-transform duration-300 ease-in-out ${
+        className={`fixed md:static inset-0 bg-fp-bg-00 z-40 w-[280px] transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 flex flex-col border-r bg-[--muted] overflow-hidden`}
+        } md:translate-x-0 flex flex-col border-r border-fp-dec-00 overflow-hidden`}
       >
-        <div className="flex h-[60px] items-center px-5 flex-shrink-0 justify-between">
+        <div className="flex h-[60px] text-fp-p items-center px-5 flex-shrink-0 justify-between">
           <Link
             to="/fp/databases"
-            className="flex items-center gap-2 font-semibold"
+            className="flex items-center gap-2 text-[16px] font-semibold"
             onClick={() => setIsSidebarOpen(false)}
           >
             <img
@@ -214,51 +215,51 @@ export default function Layout() {
           {/* Close button for mobile */}
           <button
             onClick={() => setIsSidebarOpen(false)}
-            className="md:hidden p-2 rounded-md bg-[--muted] hover:bg-[--muted]/80"
+            className="md:hidden text-fp-p p-2 rounded-full bg-fp-dec-00 hover:bg-fp-dec-01"
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
+              <path d="M4.49988 4.5L15.4999 15.5" />
+              <path d="M4.49988 15.5L15.4999 4.49996" />
             </svg>
           </button>
         </div>
+
+        {/* Sidebar nav */}
         <div className="flex-1 overflow-y-auto">
-          <nav className="grid gap-4 px-6 py-4 text-sm font-medium">
+          <nav className="grid gap-4 px-[20px] py-4 font-medium">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">Databases</span>
+              <div className="flex items-center gap-2 text-[16px]">
+                <span className="font-semibold text-fp-s">Databases</span>
               </div>
               <Link
                 data-id="15"
-                className="inline-flex h-8 items-center justify-center rounded bg-[--accent] px-3 text-accent-foreground transition-colors hover:bg-[--accent]/80"
+                className="inline-flex items-center justify-center rounded bg-fp-s p-[7px] text-fp-bg-00 transition hover:opacity-60"
                 to="/fp/databases/new"
                 onClick={() => setIsSidebarOpen(false)}
               >
                 <svg
-                  data-id="3"
-                  xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
                   fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  stroke-width="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-4 w-4"
                 >
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5v14"></path>
+                  <path d="M12 5V19" />
+                  <path d="M5 12H19" />
                 </svg>
               </Link>
             </div>
@@ -268,7 +269,7 @@ export default function Layout() {
                   <div className="flex items-center justify-between w-full">
                     <button
                       onClick={() => navigateToDatabase(db.name)}
-                      className="flex-grow text-left rounded px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-muted-foreground"
+                      className="flex-grow text-left rounded text-[16px] text-fp-p p-[8px] hover:bg-fp-bg-01"
                     >
                       <span title={db.name}>{truncateDbName(db.name, 20)}</span>
                     </button>
@@ -277,31 +278,29 @@ export default function Layout() {
                         e.stopPropagation();
                         toggleMenu(db.name);
                       }}
-                      className="flex items-center justify-center w-8 h-8 rounded transition-colors hover:bg-muted"
+                      className="flex items-center text-fp-s justify-center w-[40px] h-[40px] hover:bg-fp-bg-01 hover:text-fp-s rounded-fp-s"
                     >
                       <svg
-                        xmlns="http://www.w3.org/2000/svg"
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
                         fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                         stroke="currentColor"
-                        strokeWidth="2"
+                        strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className={`h-4 w-4 transition-transform duration-200 ${
-                          openMenu === db.name ? "rotate-180" : ""
-                        }`}
+                        className={`${openMenu === db.name ? "rotate-180 text-fp-p" : ""}`}
                       >
-                        <polyline points="6 9 12 15 18 9"></polyline>
+                        <path d="M6 14L12 9L18 14" />
                       </svg>
                     </button>
                   </div>
                   <div
-                    className={`pl-6 mt-2 space-y-2 overflow-hidden transition-all duration-200 ease-in-out ${
+                    className={`mt-[4px] overflow-hidden transition-all duration-200 ease-in-out ${
                       openMenu === db.name
-                        ? "max-h-[500px] opacity-100"
-                        : "max-h-0 opacity-0"
+                        ? "max-h-[500px] mb-[12px] opacity-100 pointer-events-auto"
+                        : "max-h-0 opacity-0 pointer-events-none"
                     }`}
                   >
                     {navLinks.map((link) => (
@@ -310,8 +309,8 @@ export default function Layout() {
                         key={link.to}
                         to={`/fp/databases/${db.name}${link.to}`}
                         className={({ isActive }) =>
-                          `block rounded px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-muted-foreground ${
-                            isActive ? "font-bold" : ""
+                          `mb-[4px] block rounded pr-[8px] pl-[20px] py-[8px] leading-[25px] hover:bg-fp-bg-01 hover:text-fp-p ${
+                            isActive ? "text-fp-p font-bold bg-fp-bg-01" : "text-fp-s"
                           }`
                         }
                         onClick={() => setIsSidebarOpen(false)}
@@ -320,13 +319,13 @@ export default function Layout() {
                       </NavLink>
                     ))}
                     {db.queries.length > 0 && (
-                      <div className="text-sm text-muted-foreground pl-3">
-                        Saved Queries:
+                      <div className="text-sm pl-[20px] mt-[16px]">
+                        <span className="opacity-40">Saved Queries:</span>
                         {db.queries.map((query, index) => (
                           <NavLink
                             key={index}
                             to={`/fp/databases/${db.name}/query/${query._id}`}
-                            className="block rounded px-3 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-muted-foreground"
+                            className="mt-[16px] block rounded px-[12px] py-[8px] leading-[25px] hover:bg-fp-bg-01"
                           >
                             {query.name || `Query ${index + 1}`}
                           </NavLink>
@@ -341,27 +340,38 @@ export default function Layout() {
         </div>
       </div>
       <div className="flex flex-col flex-1 overflow-hidden">
-        <header className="flex h-14 items-center gap-4 border-b bg-background px-6 shadow-sm flex-shrink-0">
+
+        {/* Header */}
+        <header className="flex h-14 items-center gap-4 border-b border-fp-dec-00 px-[20px] flex-shrink-0">
           <h1 className="flex-1 text-lg font-semibold"></h1>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-[16px] text-fp-s">
             <a
               href="https://use-fireproof.com/docs/welcome/"
-              className="hover:underline"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="mx-[4px] hover:underline hover:text-fp-p"
             >
               Docs
             </a>
             <a
               href="https://fireproof.storage/blog/"
-              className="hover:underline"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="mx-[4px] hover:underline hover:text-fp-p"
             >
               Blog
             </a>
-            <a href="https://discord.gg/ZEjnnnFF2D" className="hover:underline">
+            <a
+              href="https://discord.gg/ZEjnnnFF2D"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="mx-[4px] hover:underline hover:text-fp-p"
+            >
               Community
             </a>
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-full bg-[--muted] text-[--muted-foreground] hover:bg-[--muted]/80"
+              className="p-2 rounded-full bg-fp-dec-00 text-fp-p hover:opacity-60"
             >
               {isDarkMode ? (
                 <svg
@@ -415,7 +425,7 @@ export default function Layout() {
             </div>
           </div>
         </header>
-        <main className="flex-1 overflow-y-auto p-6 md:p-10">
+        <main className="flex-1 overflow-y-auto p-[20px]">
           <Outlet context={{ user }} />
         </main>
       </div>
