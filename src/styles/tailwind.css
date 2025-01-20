@@ -87,6 +87,11 @@
     background-color: var(--fp-color-background-00);
   }
 
+  /* temporary hack to fix dark highlight.js theme */
+  .dark .language-json code {
+    filter: brightness(2.5) contrast(0.6);
+  }
+
   body {
     /* @apply bg-[--background] text-[--foreground]; */
     font-size: 14px;
