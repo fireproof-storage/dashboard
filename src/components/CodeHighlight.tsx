@@ -1,8 +1,10 @@
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
 import json from "highlight.js/lib/languages/json";
-
+// TO-DO dynamic dark mode (store state in Context)
 import "highlight.js/styles/stackoverflow-light.css";
+// import "highlight.js/styles/stackoverflow-dark.css";
+
 import { useCallback, useEffect, useState } from "react";
 import Editor from "react-simple-code-editor";
 hljs.registerLanguage("json", json);
