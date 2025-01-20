@@ -25,7 +25,11 @@ function HighlightedCode({
 const codeStyle = {
   fontFamily: '"Fira code", "Fira Mono", monospace',
   fontSize: 14,
+  backgroundColor: "var(--fp-color-background-00)",
+  borderRadius: "var(--fp-radius-small)",
+  border: "1px solid var(--fp-color-decorative-00)",
 };
+
 export function CodeHighlight({
   code,
   language = "json",
@@ -73,17 +77,15 @@ export function EditableCodeHighlight({
   }, [code]);
 
   return (
-    <div className="p-2">
-      <Editor
-        value={liveCode}
-        onValueChange={onEditableChange}
-        highlight={(code) => (
-          <HighlightedCode code={code} language={language} />
-        )}
-        padding={10}
-        style={codeStyle}
-        autoFocus
-      />
-    </div>
+    <Editor
+      value={liveCode}
+      onValueChange={onEditableChange}
+      highlight={(code) => (
+        <HighlightedCode code={code} language={language} />
+      )}
+      padding={10}
+      style={codeStyle}
+      autoFocus
+    />
   );
 }

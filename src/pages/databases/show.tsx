@@ -249,11 +249,11 @@ export default function App() {
           </Link>
           {petName && (
             <>
-              <span className="mx-1">&gt;</span>
+              <span className="mx-2">&gt;</span>
               <span className="truncate max-w-[80px]">{petName}</span>
             </>
           )}
-          <span className="mx-1">&gt;</span>
+          <span className="mx-2">&gt;</span>
           <span className="truncate">All Documents ({docs.length})</span>
         </nav>
 
@@ -352,7 +352,7 @@ export default function App() {
           <div className="hidden @[575px]:flex gap-2">
             <button
               onClick={handleDeleteDatabase}
-              className="inline-flex items-center justify-center gap-[5px] py-2  h-[38px] rounded-fp-s min-w-[154px] bg-fp-bg-00 font-medium text-fp-dang border border-fp-dang transition-colors whitespace-nowrap hover:opacity-60"
+              className="inline-flex items-center justify-center gap-[5px] py-2  h-[38px] rounded-fp-s min-w-[154px] bg-fp-bg-00 font-medium text-fp-dang border border-fp-dang whitespace-nowrap hover:opacity-60"
             >
               <svg
                 width="16"
@@ -367,7 +367,7 @@ export default function App() {
             </button>
             <Link
               to={`/fp/databases/${name}/docs/new`}
-              className="inline-flex items-center justify-center gap-[5px] py-2 h-[38px] rounded-fp-s min-w-[154px] bg-fp-p font-medium text-fp-bg-00 transition-colors hover:opacity-60"
+              className="inline-flex items-center justify-center gap-[5px] py-2 h-[38px] rounded-fp-s min-w-[154px] bg-fp-p font-medium text-fp-bg-00 hover:opacity-60"
             >
               <svg
                 width="16"
@@ -385,7 +385,7 @@ export default function App() {
         </div>
       </div>
 
-      <div>
+      <>
         {docs.length === 0 ? (
           <div className="m-10 mt-14 text-center text-[20px] opacity-60 font-semibold text-balance @[575px]:mt-20">
             No documents found. <Link to={`/fp/databases/${name}/docs/new`} className="font-semibold underline">Create a new document</Link> to get started.
@@ -400,7 +400,7 @@ export default function App() {
             onDelete={deleteDocument}
           />
         )}
-      </div>
+      </>
     </div>
   );
 }

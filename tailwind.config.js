@@ -61,8 +61,8 @@ export default {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
         sm: `calc(var(--radius) - 4px)`,
-        "fp-s": "4px",
-        "fp-l": "16px",
+        "fp-s": "var(--fp-radius-small)",
+        "fp-l": "var(--fp-radius-large)",
       },
       keyframes: {
         "accordion-down": {

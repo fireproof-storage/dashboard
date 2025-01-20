@@ -13,7 +13,7 @@ export default function DynamicTable({
   const navigate = useNavigate();
 
   return (
-    <div className="relative mt-4 pb-[8px] overflow-x-scroll">
+    <div className="relative mt-[40px] overflow-x-scroll">
       <table className="w-full text-left text-fp-p border-collapse">
         <thead className="text-[11px] uppercase opacity-60 relative z-10">
           <tr key={"header" + Math.random()}>
@@ -21,7 +21,7 @@ export default function DynamicTable({
               <th
                 key={header}
                 scope="col"
-                className="px-[15px] py-[10px] font-semibold"
+                className="px-[15px] py-[8px] font-semibold"
               >
                 {header === '_id' ? 'document id' : header}
               </th>

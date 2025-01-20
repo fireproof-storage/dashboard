@@ -15,7 +15,10 @@
     --fp-color-background-00: rgba(255,255,255,1);
     --fp-color-background-01: rgba(245,245,245,1);
     --fp-color-background-02: rgba(240,240,240,1);
-     --fp-color-danger: rgba(200,32,32,1);
+    --fp-color-danger: rgba(200,32,32,1);
+
+    --fp-radius-large: 20px;
+    --fp-radius-small: 4px;
 
     --background: hsl(36 39% 88%);
     --foreground: hsl(36 45% 15%);
@@ -87,6 +90,7 @@
   body {
     /* @apply bg-[--background] text-[--foreground]; */
     font-size: 14px;
+    color: var(--fp-color-primary);
   }
 
   h1,
