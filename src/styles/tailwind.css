@@ -80,6 +80,10 @@
     @apply border-border;
   } */
 
+  :root {
+    background-color: var(--fp-color-background-00);
+  }
+
   body {
     /* @apply bg-[--background] text-[--foreground]; */
     font-size: 14px;

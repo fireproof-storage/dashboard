@@ -139,19 +139,19 @@ export default function Layout() {
   return (
     <div className="flex h-screen w-full overflow-hidden bg-fp-bg-00">
       {showEmailModal && (
-        <div className="fixed inset-0 bg-[--background]/80 backdrop-blur-sm z-50 flex items-center justify-center">
-          <div className="bg-[--background] border border-[--border] p-6 rounded-lg shadow-lg max-w-md w-full">
-            <h2 className="text-xl font-semibold text-[--foreground] mb-4">Email Preferences</h2>
-            <p className="mb-4 text-[--muted-foreground]">Would you like to receive emails from us?</p>
+        <div className="fixed inset-0 backdrop-blur-sm z-50 flex items-center justify-center text-fp-p">
+          <div className="bg-fp-bg-00 border border-fp-dec-00 px-8 py-6 rounded-fp-s shadow-lg max-w-lg w-full">
+            <h2 className="font-semibold text-[34px] mb-4">Email Preferences</h2>
+            <p className="mb-4 text-fp-s text-[16px]">Would you like to receive emails from us?</p>
             <div className="flex items-start gap-2 mb-6">
               <input
                 type="checkbox"
                 id="emailPreference"
                 checked={emailPreference}
                 onChange={(e) => setEmailPreference(e.target.checked)}
-                className="mt-1"
+                className="w-[28px] h-[28px] cursor-pointer mt-[-2px] accent-fp-a-01"
               />
-              <label htmlFor="emailPreference" className="text-[--muted-foreground]">
+              <label htmlFor="emailPreference" className="text-[16px] text-fp-s cursor-pointer hover:text-fp-p">
                 Yes, I'd like to receive (occasional, genuinely informative) emails from Fireproof.
               </label>
             </div>
@@ -159,7 +159,7 @@ export default function Layout() {
               <button
                 type="button"
                 onClick={handleEmailPreference}
-                className="px-4 py-2 bg-[--accent] text-[--accent-foreground] rounded hover:bg-[--accent]/80"
+                className="px-5 py-2 bg-fp-p font-medium text-fp-bg-00 rounded-fp-s hover:opacity-60"
               >
                 Confirm
               </button>
