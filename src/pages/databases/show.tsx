@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { useFireproof } from "use-fireproof";
 import DynamicTable from "../../components/DynamicTable";
 import { headersForDocs } from "../../components/dynamicTableHelpers";
-import { truncateDbName } from "../../layouts/app";
+import { truncateDbName } from "../../components/Sidebar";
 
 export const DEFAULT_ENDPOINT =
   "fireproof://cloud.fireproof.direct?getBaseUrl=https://storage.fireproof.direct/";
