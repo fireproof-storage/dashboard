@@ -254,7 +254,7 @@ export default function Layout() {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                   stroke="currentColor"
-                  stroke-width="2"
+                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
@@ -344,7 +344,7 @@ export default function Layout() {
         {/* Header */}
         <header className="flex h-14 items-center gap-4 border-b border-fp-dec-00 px-[20px] flex-shrink-0">
           <h1 className="flex-1 text-lg font-semibold"></h1>
-          <div className="flex items-center gap-[16px] text-fp-s">
+          <div className="flex items-center gap-[8px] text-fp-s sm:gap-[16px]">
             <a
               href="https://use-fireproof.com/docs/welcome/"
               rel="noopener noreferrer"

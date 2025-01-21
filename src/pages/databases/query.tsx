@@ -44,10 +44,10 @@ export default function Query() {
   return (
     <div className="p-[28px] bg-fp-bg-01 rounded-fp-l">
       <div className="flex justify-between items-center mb-4 h-[38px]">
-        <nav className="">
+        <nav className="text-fp-s">
           <Link
             to={`/fp/databases/${name}`}
-            className="font-semibold hover:underline"
+            className="font-semibold break-all hover:underline hover:text-fp-p"
           >
             {name}
           </Link>

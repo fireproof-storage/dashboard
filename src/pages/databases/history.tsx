@@ -29,10 +29,10 @@ export default function ChangesHistory() {
   return (
     <div className="p-[28px] bg-fp-bg-01 text-fp-p rounded-fp-l">
       <div className="flex justify-between items-center h-[38px]">
-        <nav className="">
+        <nav className="text-fp-s">
           <Link
             to={`/fp/databases/${name}`}
-            className="font-semibold hover:underline"
+            className="font-semibold break-all hover:underline hover:text-fp-p"
           >
             {name}
           </Link>
@@ -43,7 +43,7 @@ export default function ChangesHistory() {
       {!!rows.length ? (
         <DynamicTable dbName={name} headers={headers} rows={rows} />
         ) : (
-        <div className="m-10 mt-[80px] text-center text-[20px] opacity-60 font-semibold text-balance">
+        <div className="m-2 mb-[60px] mt-[80px] text-center text-[20px] opacity-60 font-semibold text-balance">
           No history found.
         </div>
         )

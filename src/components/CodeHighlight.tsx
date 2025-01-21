@@ -17,7 +17,7 @@ function HighlightedCode({
 }) {
   const highlightedCode = hljs.highlight(code, { language }).value;
   return (
-    <pre className={`language-${language}`}>
+    <pre className={`language-${language} overflow-x-auto`}>
       <code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
     </pre>
   );
@@ -28,6 +28,7 @@ const codeStyle = {
   backgroundColor: "var(--fp-color-background-00)",
   borderRadius: "var(--fp-radius-small)",
   border: "1px solid var(--fp-color-decorative-00)",
+  overflowX: "auto",
 };
 
 export function CodeHighlight({
