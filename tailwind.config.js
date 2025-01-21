@@ -21,46 +21,8 @@ export default {
         "fp-bg-01": "var(--fp-color-background-01)",
         "fp-bg-02": "var(--fp-color-background-02)",
         "fp-dang": "var(--fp-color-danger)",
- 
-        border: "var(--border)",
-        input: "var(--input)",
-        ring: "var(--ring)",
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
-        },
-        secondary: {
-          DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
-        },
-        destructive: {
-          DEFAULT: "var(--destructive)",
-          foreground: "var(--destructive-foreground)",
-        },
-        muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
-        },
-        accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
-        },
-        popover: {
-          DEFAULT: "var(--popover)",
-          foreground: "var(--popover-foreground)",
-        },
-        card: {
-          DEFAULT: "var(--card)",
-          foreground: "var(--card-foreground)",
-        },
       },
       borderRadius: {
-        xl: `calc(var(--radius) + 4px)`,
-        lg: `var(--radius)`,
-        md: `calc(var(--radius) - 2px)`,
-        sm: `calc(var(--radius) - 4px)`,
         "fp-s": "var(--fp-radius-small)",
         "fp-l": "var(--fp-radius-large)",
       },

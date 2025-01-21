@@ -47,7 +47,7 @@ export default function New() {
         </div>
         <button
           type="submit"
-          className="mt-[14px] inline-flex w-full h-[38px] items-center justify-center rounded-fp-s bg-fp-p px-[40px] text-sm font-medium text-fp-bg-00 shadow-sm hover:bg-[--accent]/80 transition-colors sm:ml-3 sm:mt-0 sm:w-auto"
+          className="mt-[14px] inline-flex w-full h-[38px] items-center justify-center rounded-fp-s bg-fp-p px-[40px] text-sm font-medium text-fp-bg-00 shadow-sm sm:ml-3 sm:mt-0 sm:w-auto"
         >
           Create
         </button>
