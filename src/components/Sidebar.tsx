@@ -81,7 +81,7 @@ export default function Sidebar({ databases }) {
         {/* Close button for mobile */}
         <button
           onClick={() => setIsSidebarOpen(false)}
-          className="md:hidden text-fp-p p-2 rounded-full bg-fp-dec-00 hover:bg-fp-dec-01"
+          className="md:hidden text-fp-p p-2 rounded-full bg-fp-dec-00 hover:bg-fp-dec-02"
         >
           <svg
             width="20"
@@ -105,7 +105,7 @@ export default function Sidebar({ databases }) {
         <nav className="grid gap-4 px-[20px] py-4 font-medium">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-[16px]">
-              <span className="font-semibold text-fp-dec-01 text-[11px] uppercase">Databases</span>
+              <span className="font-semibold text-fp-dec-02 text-[11px] uppercase">Databases</span>
             </div>
             <Link
               data-id="15"

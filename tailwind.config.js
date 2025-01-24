@@ -17,10 +17,12 @@ export default {
         "fp-a-03": "var(--fp-color-accent-03)",
         "fp-dec-00": "var(--fp-color-decorative-00)",
         "fp-dec-01": "var(--fp-color-decorative-01)",
+        "fp-dec-02": "var(--fp-color-decorative-02)",
         "fp-bg-00": "var(--fp-color-background-00)",
         "fp-bg-01": "var(--fp-color-background-01)",
         "fp-bg-02": "var(--fp-color-background-02)",
-        "fp-dang": "var(--fp-color-danger)",
+        "fp-red": "var(--fp-color-red)",
+        "fp-green": "var(--fp-color-green)",
       },
       borderRadius: {
         "fp-s": "var(--fp-radius-small)",

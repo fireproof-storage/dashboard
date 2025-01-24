@@ -163,7 +163,7 @@ function TableView({ name }: { name: string }) {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`h-4 w-4 transform ${
-                showQuickstart ? "rotate-180 text-fp-p" : "text-fp-dec-01"
+                showQuickstart ? "rotate-180 text-fp-p" : "text-fp-dec-02"
               }`}
             >
               <path d="M1 1L7 6L13 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -262,9 +262,9 @@ export default function App() {
             <div className="relative" ref={connectionInfoRef}>
               <div
                 onClick={handleConnectionInfoClick}
-                className="cursor-pointer inline-flex items-center justify-center h-[38px] rounded-fp-s bg-fp-bg-00 px-3 py-2 font-medium transition-colors border border-fp-dec-00 whitespace-nowrap hover:opacity-60"
+                className="cursor-pointer inline-flex items-center justify-center h-[38px] rounded-fp-s bg-fp-bg-00 px-3 py-2 font-medium border border-fp-dec-00 whitespace-nowrap hover:opacity-60"
               >
-                <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                <span className="w-2 h-2 bg-fp-green rounded-full mr-2"></span>
                 Connected
               </div>
               {showConnectionInfo &&
@@ -331,7 +331,7 @@ export default function App() {
                 </Link>
                 <button
                   onClick={handleDeleteDatabase}
-                  className="w-full flex items-center gap-[5px] text-fp-dang whitespace-nowrap"
+                  className="w-full flex items-center gap-[5px] text-fp-red whitespace-nowrap"
                 >
                   <svg
                     width="16"
@@ -352,7 +352,7 @@ export default function App() {
           <div className="hidden @[575px]:flex gap-2">
             <button
               onClick={handleDeleteDatabase}
-              className="inline-flex items-center justify-center gap-[5px] py-2  h-[38px] rounded-fp-s min-w-[154px] bg-fp-bg-00 font-medium text-fp-dang border border-fp-dang whitespace-nowrap hover:opacity-60"
+              className="inline-flex items-center justify-center gap-[5px] py-2  h-[38px] rounded-fp-s min-w-[154px] bg-fp-bg-00 font-medium text-fp-red border border-fp-red whitespace-nowrap hover:opacity-60"
             >
               <svg
                 width="16"

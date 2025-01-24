@@ -71,7 +71,7 @@ export default function Query() {
       />
       <div className="flex gap-[14px] mt-[14px] justify-end">
         <button
-          className="flex items-center justify-center gap-[5px] py-2 h-[38px] rounded-fp-s min-w-[105px] bg-fp-bg-00 border border-fp-dec-01 font-medium hover:opacity-60"
+          className="flex items-center justify-center gap-[5px] py-2 h-[38px] rounded-fp-s min-w-[105px] bg-fp-bg-00 border border-fp-dec-02 font-medium hover:opacity-60"
           onClick={runTempQuery}
         >
           Query
@@ -85,8 +85,8 @@ export default function Query() {
       </div>
 
       {userCodeError ? (
-        <div className="mt-4 border border-fp-dang p-4 pb-6 rounded-fp-s">
-          <h3 className="text-fp-dang font-bold text-[20px] mb-2">Error:</h3>
+        <div className="mt-4 border border-fp-red p-4 pb-6 rounded-fp-s">
+          <h3 className="text-fp-red font-bold text-[20px] mb-2">Error:</h3>
           <p className="text-fp-s">{userCodeError}</p>
         </div>
       ) : (

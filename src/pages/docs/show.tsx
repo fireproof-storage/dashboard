@@ -66,7 +66,7 @@ export default function Document() {
         {_id && (
           <button
               onClick={() => deleteDocument(_id)}
-              className="inline-flex items-center justify-center gap-[5px] py-2  h-[38px] rounded-fp-s min-w-[100%] bg-fp-bg-00 font-medium text-fp-dang border border-fp-dang whitespace-nowrap hover:opacity-60 sm:min-w-[154px]"
+              className="inline-flex items-center justify-center gap-[5px] py-2  h-[38px] rounded-fp-s min-w-[100%] bg-fp-bg-00 font-medium text-fp-red border border-fp-red whitespace-nowrap hover:opacity-60 sm:min-w-[154px]"
             >
               <svg
                 width="16"
@@ -90,7 +90,7 @@ export default function Document() {
       <div className="flex gap-[14px] justify-end mt-[14px] mb-[32px]">
         <Link
           to={`/fp/databases/${name}`}
-          className="flex items-center justify-center gap-[5px] py-2 h-[38px] rounded-fp-s min-w-[105px] bg-fp-bg-00 border border-fp-dec-01 font-medium hover:opacity-60"
+          className="flex items-center justify-center gap-[5px] py-2 h-[38px] rounded-fp-s min-w-[105px] bg-fp-bg-00 border border-fp-dec-02 font-medium hover:opacity-60"
         >
           Cancel
         </Link>
