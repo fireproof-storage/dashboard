@@ -144,7 +144,7 @@ export default function Sidebar({ databases }) {
                       e.stopPropagation();
                       toggleMenu(db.name);
                     }}
-                    className="flex items-center text-fp-s justify-center w-[40px] h-[40px] hover:bg-fp-bg-01 hover:text-fp-s rounded-fp-s"
+                    className="flex items-center justify-center w-[40px] h-[40px] hover:bg-fp-bg-01 hover:text-fp-s rounded-fp-s"
                   >
                     <svg
                       width="24"
@@ -156,7 +156,7 @@ export default function Sidebar({ databases }) {
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className={`${openMenu === db.name ? "rotate-180 text-fp-p" : ""}`}
+                      className={`${openMenu === db.name ? "rotate-180 text-fp-p" : "text-fp-dec-02"}`}
                     >
                       <path d="M6 14L12 9L18 14" />
                     </svg>

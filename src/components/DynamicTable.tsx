@@ -15,13 +15,13 @@ export default function DynamicTable({
   return (
     <div className="relative mt-[40px] overflow-x-scroll">
       <table className="w-full text-left text-fp-p border-collapse">
-        <thead className="text-[11px] uppercase opacity-60 relative z-10">
+        <thead className="text-[11px] uppercase relative z-10">
           <tr key={"header" + Math.random()}>
             {headers.map((header: string) => (
               <th
                 key={header}
                 scope="col"
-                className="px-[15px] py-[8px] font-semibold"
+                className="px-[15px] py-[8px] font-semibold text-fp-dec-02"
               >
                 {header === '_id' ? 'document id' : header}
               </th>
