@@ -1,8 +1,8 @@
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
 import json from "highlight.js/lib/languages/json";
-
 import "highlight.js/styles/stackoverflow-light.css";
+
 import { useCallback, useEffect, useState } from "react";
 import Editor from "react-simple-code-editor";
 hljs.registerLanguage("json", json);
@@ -17,7 +17,7 @@ function HighlightedCode({
 }) {
   const highlightedCode = hljs.highlight(code, { language }).value;
   return (
-    <pre className={`language-${language}`}>
+    <pre className={`language-${language} overflow-x-auto`}>
       <code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
     </pre>
   );
@@ -25,7 +25,12 @@ function HighlightedCode({
 const codeStyle = {
   fontFamily: '"Fira code", "Fira Mono", monospace',
   fontSize: 14,
+  backgroundColor: "var(--fp-color-background-00)",
+  borderRadius: "var(--fp-radius-small)",
+  border: "1px solid var(--fp-color-decorative-00)",
+  overflowX: "auto",
 };
+
 export function CodeHighlight({
   code,
   language = "json",
@@ -73,17 +78,15 @@ export function EditableCodeHighlight({
   }, [code]);
 
   return (
-    <div className="p-2">
-      <Editor
-        value={liveCode}
-        onValueChange={onEditableChange}
-        highlight={(code) => (
-          <HighlightedCode code={code} language={language} />
-        )}
-        padding={10}
-        style={codeStyle}
-        autoFocus
-      />
-    </div>
+    <Editor
+      value={liveCode}
+      onValueChange={onEditableChange}
+      highlight={(code) => (
+        <HighlightedCode code={code} language={language} />
+      )}
+      padding={10}
+      style={codeStyle}
+      autoFocus
+    />
   );
 }

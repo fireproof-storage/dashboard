@@ -27,12 +27,12 @@ export default function ChangesHistory() {
   const rows = history.rows.map((row) => row.value).reverse();
 
   return (
-    <div className="p-6 bg-[--muted]">
-      <div className="flex justify-between items-center mb-4">
-        <nav className="text-lg text-[--muted-foreground]">
+    <div className="p-[28px] bg-fp-bg-01 text-fp-p rounded-fp-l">
+      <div className="flex justify-between items-center h-[38px]">
+        <nav className="text-fp-s">
           <Link
             to={`/fp/databases/${name}`}
-            className="font-medium text-[--foreground] hover:underline"
+            className="font-semibold break-all hover:underline hover:text-fp-p"
           >
             {name}
           </Link>
@@ -40,7 +40,14 @@ export default function ChangesHistory() {
           <span>History</span>
         </nav>
       </div>
-      <DynamicTable dbName={name} headers={headers} rows={rows} />
+      {!!rows.length ? (
+        <DynamicTable dbName={name} headers={headers} rows={rows} />
+        ) : (
+        <div className="m-2 mb-[60px] mt-[80px] text-center text-[20px] opacity-60 font-semibold text-balance">
+          No history found.
+        </div>
+        )
+      }
     </div>
   );
 }

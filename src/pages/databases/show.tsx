@@ -4,8 +4,9 @@ import { createPortal } from "react-dom";
 import { Link, useParams } from "react-router-dom";
 import { useFireproof } from "use-fireproof";
 import DynamicTable from "../../components/DynamicTable";
+import Button from "../../components/Button"
 import { headersForDocs } from "../../components/dynamicTableHelpers";
-import { truncateDbName } from "../../layouts/app";
+import { truncateDbName } from "../../components/Sidebar";
 
 export const DEFAULT_ENDPOINT =
   "fireproof://cloud.fireproof.direct?getBaseUrl=https://storage.fireproof.direct/";
@@ -148,47 +149,46 @@ function TableView({ name }: { name: string }) {
   }, []);
 
   return (
-    <div className="p-6 bg-[--muted]">
+    <div className="@container p-[28px] bg-fp-bg-01 rounded-fp-l text-fp-p">
       {connection && (
-        <div className="mb-4 bg-[--background] border border-[--border] rounded-md p-4">
+        <div className="mb-4 border border-fp-dec-00 rounded-fp-s p-[20px]">
           <div
             className="flex items-center cursor-pointer"
-            onClick={() => setShowQuickstart(!showQuickstart)}
+            onClick={() => setShowQuickstart(showQuickstart => !showQuickstart)}
           >
-            <h3 className="font-bold text-sm flex-grow">Quickstart</h3>
-            <svg
+            <h3 className="font-bold text-[20px] flex-grow select-none">Quickstart</h3>
+            <svg 
+              width="14"
+              height="7"
+              viewBox="0 0 14 7"
+              fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className={`h-4 w-4 transform transition-transform ${
-                showQuickstart ? "rotate-180" : ""
+              className={`h-4 w-4 transform ${
+                showQuickstart ? "rotate-180 text-fp-p" : "text-fp-dec-02"
               }`}
-              viewBox="0 0 20 20"
-              fill="currentColor"
             >
-              <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
+              <path d="M1 1L7 6L13 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
+
           </div>
           {showQuickstart && (
             <div className="mt-4">
-              <div className="flex border-b border-[--border] mb-4">
+              <div className="flex border-b border-fp-dec-00 text-fp-p mb-4">
                 <button
-                  className={`px-4 py-2 text-sm font-medium ${
+                  className={`px-4 py-2 font-medium border-b-2 select-none ${
                     activeTab === "react"
-                      ? "border-b-2 border-[--accent] text-[--accent]"
-                      : "text-[--muted-foreground]"
+                      ? "border-fp-a-03 text-fp-a-03" 
+                      : "border-transparent"
                   }`}
                   onClick={() => setActiveTab("react")}
                 >
                   React
                 </button>
                 <button
-                  className={`px-4 py-2 text-sm font-medium ${
+                  className={`px-4 py-2 font-medium border-b-2 select-none ${
                     activeTab === "vanilla"
-                      ? "border-b-2 border-[--accent] text-[--accent]"
-                      : "text-[--muted-foreground]"
+                      ? " border-fp-a-03 text-fp-a-03"
+                      : "border-transparent"
                   }`}
                   onClick={() => setActiveTab("vanilla")}
                 >
@@ -196,10 +196,9 @@ function TableView({ name }: { name: string }) {
                 </button>
               </div>
 
-              {activeTab === "react" && (
-                <pre className="bg-[--muted] p-2 rounded text-xs overflow-x-auto">
-                  {`
-import { useFireproof } from "use-fireproof";
+                <pre className="bg-fp-bg-00 p-[12px] rounded-fp-s border border-fp-dec-00 text-xs overflow-x-auto">
+                  {activeTab === "react" &&
+`import { useFireproof } from "use-fireproof";
 import { connect } from "@fireproof/cloud";
 
 export default function App() {
@@ -234,52 +233,47 @@ export default function App() {
     </div>
   );
 }`}
+                  {activeTab === "vanilla" && ``}
                 </pre>
-              )}
-
-              {activeTab === "vanilla" && (
-                <pre className="bg-[--muted] p-2 rounded text-xs overflow-x-auto">
-                  {``}
-                </pre>
-              )}
             </div>
           )}
         </div>
       )}
 
-      <div className="@container flex justify-between items-start mb-4 gap-4">
-        <nav className="text-base max-[500px]:text-sm text-[--muted-foreground] flex-grow flex items-center flex-wrap">
+      <div className="flex justify-end items-start mb-4 gap-4 @[575px]:flex-nowrap flex-wrap">
+        <nav className="max-[500px] h-[38px] flex-grow flex items-center flex-wrap">
           <Link
             to={`/fp/databases/${name}`}
-            className="font-medium text-[--foreground] hover:underline truncate max-w-[150px]"
+            className="font-semibold text-fp-p hover:underline truncate max-w-[150px]"
           >
             {truncateDbName(name, 12)}
           </Link>
           {petName && (
             <>
-              <span className="mx-1">&gt;</span>
+              <span className="mx-2">&gt;</span>
               <span className="truncate max-w-[80px]">{petName}</span>
             </>
           )}
-          <span className="mx-1">&gt;</span>
+          <span className="mx-2">&gt;</span>
           <span className="truncate">All Documents ({docs.length})</span>
         </nav>
 
         <div className="flex gap-2 items-center max-[500px]:self-auto">
           {connection && (
             <div className="relative" ref={connectionInfoRef}>
-              <div
+              <Button
+                variation="tertiary"
+                tag="div"
                 onClick={handleConnectionInfoClick}
-                className="cursor-pointer inline-flex items-center justify-center rounded bg-[--background] px-3 py-2 text-sm font-medium text-[--foreground] transition-colors hover:bg-[--background]/80 border border-[--border] whitespace-nowrap"
               >
-                <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                Connected
-              </div>
+                <span className="w-2 h-2 bg-fp-green rounded-full mr-2"></span>
+               Connected
+              </Button>
               {showConnectionInfo &&
                 createPortal(
                   <div
                     id="connection-info-popup"
-                    className="fixed bg-[--background] border border-[--border] rounded-md shadow-lg z-[9999] w-64"
+                    className="fixed bg-fp-bg-00 border border-fp-dec-00 rounded-fp-s shadow-lg z-[9999] w-64"
                     style={{
                       top: connectionInfoPosition.top + "px",
                       left: connectionInfoPosition.left + "px",
@@ -287,12 +281,13 @@ export default function App() {
                   >
                     <div className="p-4">
                       <h3 className="font-bold mb-2">Share Database:</h3>
-                      <button
+                      <Button
+                        variation="primary"
                         onClick={copyToClipboard}
-                        className="w-full p-2 bg-[--accent] text-accent-foreground rounded hover:bg-[--accent]/80 transition-colors"
+                        style="w-full"
                       >
                         {copySuccess ? "Copied!" : "Copy Share Link"}
-                      </button>
+                      </Button>
                     </div>
                   </div>,
                   document.body
@@ -302,39 +297,56 @@ export default function App() {
 
           {/* Mobile Actions Dropdown */}
           <div className="relative block @[575px]:hidden" ref={actionsRef}>
-            <button
-              onClick={() => setShowActions(!showActions)}
-              className="inline-flex items-center justify-center rounded bg-[--accent] px-3 py-2 text-sm font-medium text-accent-foreground transition-colors hover:bg-[--accent]/80 whitespace-nowrap"
-            >
+            <Button
+                variation="primary"
+                style="min-w-[108px] pl-[24px]"
+                onClick={() => setShowActions(!showActions)}
+              >
+            
               Actions
               <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className={`h-4 w-4 ml-2 transform transition-transform ${
+                className={`transform ${
                   showActions ? "rotate-180" : ""
-                }`}
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
+                }`}>
+                <path d="M3.5 7L8 11L12.5 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
-            </button>
+            </Button>
 
             {showActions && (
-              <div className="absolute right-0 mt-2 w-48 bg-[--background] rounded-md shadow-lg z-10 border border-[--border]">
+              <div className="absolute right-0 mt-2 p-[18px] text-fp-p bg-fp-bg-00 rounded-fp-s border border-fp-dec-00 z-[999]">
                 <Link
                   to={`/fp/databases/${name}/docs/new`}
-                  className="block px-4 py-2 text-sm text-[--foreground] hover:bg-[--muted] hover:text-[--foreground] whitespace-nowrap"
+                  className="w-full flex items-center gap-[5px] mb-[24px] text-fp-p whitespace-nowrap"
                 >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 3.5C9 2.94772 8.55228 2.5 8 2.5C7.44772 2.5 7 2.94772 7 3.5V7H3.5C2.94772 7 2.5 7.44772 2.5 8C2.5 8.55228 2.94772 9 3.5 9H7V12.5C7 13.0523 7.44772 13.5 8 13.5C8.55228 13.5 9 13.0523 9 12.5V9H12.5C13.0523 9 13.5 8.55228 13.5 8C13.5 7.44772 13.0523 7 12.5 7H9V3.5Z" fill="currentColor"/>
+                  </svg>
                   New Document
                 </Link>
                 <button
                   onClick={handleDeleteDatabase}
-                  className="w-full text-left px-4 py-2 text-sm text-[--destructive] hover:bg-[--destructive] hover:text-destructive-foreground whitespace-nowrap"
+                  className="w-full flex items-center gap-[5px] text-fp-red whitespace-nowrap"
                 >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path fillRule="evenodd" clipRule="evenodd" d="M7.19999 1.59998C7.05147 1.60005 6.90589 1.64148 6.77957 1.71962C6.65326 1.79775 6.55119 1.90951 6.48479 2.04238L5.90559 3.19998H3.19999C2.98782 3.19998 2.78434 3.28426 2.63431 3.43429C2.48428 3.58432 2.39999 3.7878 2.39999 3.99998C2.39999 4.21215 2.48428 4.41563 2.63431 4.56566C2.78434 4.71569 2.98782 4.79998 3.19999 4.79998V12.8C3.19999 13.2243 3.36856 13.6313 3.66862 13.9313C3.96868 14.2314 4.37565 14.4 4.79999 14.4H11.2C11.6243 14.4 12.0313 14.2314 12.3314 13.9313C12.6314 13.6313 12.8 13.2243 12.8 12.8V4.79998C13.0122 4.79998 13.2157 4.71569 13.3657 4.56566C13.5157 4.41563 13.6 4.21215 13.6 3.99998C13.6 3.7878 13.5157 3.58432 13.3657 3.43429C13.2157 3.28426 13.0122 3.19998 12.8 3.19998H10.0944L9.51519 2.04238C9.4488 1.90951 9.34673 1.79775 9.22042 1.71962C9.0941 1.64148 8.94852 1.60005 8.79999 1.59998H7.19999ZM5.59999 6.39998C5.59999 6.1878 5.68428 5.98432 5.83431 5.83429C5.98434 5.68426 6.18782 5.59998 6.39999 5.59998C6.61217 5.59998 6.81565 5.68426 6.96568 5.83429C7.11571 5.98432 7.19999 6.1878 7.19999 6.39998V11.2C7.19999 11.4121 7.11571 11.6156 6.96568 11.7657C6.81565 11.9157 6.61217 12 6.39999 12C6.18782 12 5.98434 11.9157 5.83431 11.7657C5.68428 11.6156 5.59999 11.4121 5.59999 11.2V6.39998ZM9.59999 5.59998C9.38782 5.59998 9.18434 5.68426 9.03431 5.83429C8.88428 5.98432 8.79999 6.1878 8.79999 6.39998V11.2C8.79999 11.4121 8.88428 11.6156 9.03431 11.7657C9.18434 11.9157 9.38782 12 9.59999 12C9.81217 12 10.0157 11.9157 10.1657 11.7657C10.3157 11.6156 10.4 11.4121 10.4 11.2V6.39998C10.4 6.1878 10.3157 5.98432 10.1657 5.83429C10.0157 5.68426 9.81217 5.59998 9.59999 5.59998Z" fill="currentColor"/>
+                  </svg>
                   Delete Database
                 </button>
               </div>
@@ -343,50 +355,45 @@ export default function App() {
 
           {/* Desktop Actions */}
           <div className="hidden @[575px]:flex gap-2">
-            <Link
-              to={`/fp/databases/${name}/docs/new`}
-              className="inline-flex items-center justify-center rounded bg-[--accent] px-3 py-2 text-sm font-medium text-accent-foreground transition-colors hover:bg-[--accent]/80 whitespace-nowrap"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 mr-2"
-                viewBox="0 0 20 20"
-                fill="currentColor"
+            <Button
+                variation="destructive"
+                onClick={handleDeleteDatabase}
               >
-                <path
-                  fillRule="evenodd"
-                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              New Document
-            </Link>
-            <button
-              onClick={handleDeleteDatabase}
-              className="inline-flex items-center justify-center rounded bg-[--destructive] px-3 py-2 text-sm text-destructive-foreground transition-colors hover:bg-[--destructive]/80 whitespace-nowrap"
-            >
               <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 mr-2"
-                viewBox="0 0 20 20"
-                fill="currentColor"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                  clipRule="evenodd"
-                />
+                <path fillRule="evenodd" clipRule="evenodd" d="M7.19999 1.59998C7.05147 1.60005 6.90589 1.64148 6.77957 1.71962C6.65326 1.79775 6.55119 1.90951 6.48479 2.04238L5.90559 3.19998H3.19999C2.98782 3.19998 2.78434 3.28426 2.63431 3.43429C2.48428 3.58432 2.39999 3.7878 2.39999 3.99998C2.39999 4.21215 2.48428 4.41563 2.63431 4.56566C2.78434 4.71569 2.98782 4.79998 3.19999 4.79998V12.8C3.19999 13.2243 3.36856 13.6313 3.66862 13.9313C3.96868 14.2314 4.37565 14.4 4.79999 14.4H11.2C11.6243 14.4 12.0313 14.2314 12.3314 13.9313C12.6314 13.6313 12.8 13.2243 12.8 12.8V4.79998C13.0122 4.79998 13.2157 4.71569 13.3657 4.56566C13.5157 4.41563 13.6 4.21215 13.6 3.99998C13.6 3.7878 13.5157 3.58432 13.3657 3.43429C13.2157 3.28426 13.0122 3.19998 12.8 3.19998H10.0944L9.51519 2.04238C9.4488 1.90951 9.34673 1.79775 9.22042 1.71962C9.0941 1.64148 8.94852 1.60005 8.79999 1.59998H7.19999ZM5.59999 6.39998C5.59999 6.1878 5.68428 5.98432 5.83431 5.83429C5.98434 5.68426 6.18782 5.59998 6.39999 5.59998C6.61217 5.59998 6.81565 5.68426 6.96568 5.83429C7.11571 5.98432 7.19999 6.1878 7.19999 6.39998V11.2C7.19999 11.4121 7.11571 11.6156 6.96568 11.7657C6.81565 11.9157 6.61217 12 6.39999 12C6.18782 12 5.98434 11.9157 5.83431 11.7657C5.68428 11.6156 5.59999 11.4121 5.59999 11.2V6.39998ZM9.59999 5.59998C9.38782 5.59998 9.18434 5.68426 9.03431 5.83429C8.88428 5.98432 8.79999 6.1878 8.79999 6.39998V11.2C8.79999 11.4121 8.88428 11.6156 9.03431 11.7657C9.18434 11.9157 9.38782 12 9.59999 12C9.81217 12 10.0157 11.9157 10.1657 11.7657C10.3157 11.6156 10.4 11.4121 10.4 11.2V6.39998C10.4 6.1878 10.3157 5.98432 10.1657 5.83429C10.0157 5.68426 9.81217 5.59998 9.59999 5.59998Z" fill="currentColor"/>
               </svg>
               Delete Database
-            </button>
+            </Button>
+            <Button
+                variation="primary"
+                tag={Link}
+                to={`/fp/databases/${name}/docs/new`}
+              >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M9 3.5C9 2.94772 8.55228 2.5 8 2.5C7.44772 2.5 7 2.94772 7 3.5V7H3.5C2.94772 7 2.5 7.44772 2.5 8C2.5 8.55228 2.94772 9 3.5 9H7V12.5C7 13.0523 7.44772 13.5 8 13.5C8.55228 13.5 9 13.0523 9 12.5V9H12.5C13.0523 9 13.5 8.55228 13.5 8C13.5 7.44772 13.0523 7 12.5 7H9V3.5Z" fill="currentColor"/>
+              </svg>
+              New Document
+            </Button>
           </div>
         </div>
       </div>
 
-      <div>
+      <>
         {docs.length === 0 ? (
-          <div className="mt-4 text-center text-[--muted-foreground]">
-            No documents found. <Link to={`/fp/databases/${name}/docs/new`} className="font-semibold text-[--accent] hover:underline">Create a new document</Link> to get started.
+          <div className="m-2 mb-[60px] mt-14 text-center text-[20px] opacity-60 font-semibold text-balance @[575px]:mt-20">
+            No documents found. <Link to={`/fp/databases/${name}/docs/new`} className="font-semibold underline">Create a new document</Link> to get started.
           </div>
         ) : (
           <DynamicTable
@@ -398,7 +405,7 @@ export default function App() {
             onDelete={deleteDocument}
           />
         )}
-      </div>
+      </>
     </div>
   );
 }

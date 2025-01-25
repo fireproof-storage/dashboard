@@ -9,45 +9,24 @@ export default {
         body: ["var(--font-body)", ...fontFamily.mono],
       },
       colors: {
-        border: "var(--border)",
-        input: "var(--input)",
-        ring: "var(--ring)",
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
-        },
-        secondary: {
-          DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
-        },
-        destructive: {
-          DEFAULT: "var(--destructive)",
-          foreground: "var(--destructive-foreground)",
-        },
-        muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
-        },
-        accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
-        },
-        popover: {
-          DEFAULT: "var(--popover)",
-          foreground: "var(--popover-foreground)",
-        },
-        card: {
-          DEFAULT: "var(--card)",
-          foreground: "var(--card-foreground)",
-        },
+        "fp-p": "var(--fp-color-primary)",
+        "fp-s": "var(--fp-color-secondary)",
+        "fp-a-00": "var(--fp-color-accent-00)",
+        "fp-a-01": "var(--fp-color-accent-01)",
+        "fp-a-02": "var(--fp-color-accent-02)",
+        "fp-a-03": "var(--fp-color-accent-03)",
+        "fp-dec-00": "var(--fp-color-decorative-00)",
+        "fp-dec-01": "var(--fp-color-decorative-01)",
+        "fp-dec-02": "var(--fp-color-decorative-02)",
+        "fp-bg-00": "var(--fp-color-background-00)",
+        "fp-bg-01": "var(--fp-color-background-01)",
+        "fp-bg-02": "var(--fp-color-background-02)",
+        "fp-red": "var(--fp-color-red)",
+        "fp-green": "var(--fp-color-green)",
       },
       borderRadius: {
-        xl: `calc(var(--radius) + 4px)`,
-        lg: `var(--radius)`,
-        md: `calc(var(--radius) - 2px)`,
-        sm: `calc(var(--radius) - 4px)`,
+        "fp-s": "var(--fp-radius-small)",
+        "fp-l": "var(--fp-radius-large)",
       },
       keyframes: {
         "accordion-down": {
