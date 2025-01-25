@@ -1,3 +1,14 @@
+import { useDarkMode } from '../layouts/app'
+
+type ButtonProps<T extends ElementType> = {
+  children: ReactNode;
+  tag?: T; // "button" | "a" | any other valid HTML tag
+  type?: "primary" | "secondary" | "tertiary" | "destructive";
+  style?: string; // additional custom styles
+  disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLElement>;
+} & React.ComponentPropsWithoutRef<T>; 
+
 const baseStyles = "inline-flex items-center justify-center gap-[5px] py-[11px] px-[14px] h-[38px] leading-[16px] font-medium rounded-fp-s";
 
 const buttonStyles = {
@@ -19,15 +30,6 @@ const buttonStyles = {
   },
 }
 
-type ButtonProps<T extends ElementType> = {
-  children: ReactNode;
-  tag?: T; // "button" | "a" | any other valid HTML tag
-  type?: "primary" | "secondary" | "tertiary" | "destructive";
-  style?: string; // additional custom styles
-  disabled?: boolean;
-  onClick?: React.MouseEventHandler<HTMLElement>;
-} & React.ComponentPropsWithoutRef<T>; 
-
 export default function Button<T extends ElementType = "button">({
   children,
   tag = "button",
@@ -37,7 +39,7 @@ export default function Button<T extends ElementType = "button">({
   onClick,
   ...rest
 }: ButtonProps<T>) {
-  const isDarkMode = true;
+  const isDarkMode = useDarkMode()
   const Component = tag;
 
   const typeStyles = isDarkMode ? buttonStyles[type].dark : buttonStyles[type].light;

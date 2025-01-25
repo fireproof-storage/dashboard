@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function getDarkMode() {
-  const storedDarkMode = localStorage.getItem("darkMode");
-  const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)").matches
-  return storedDarkMode === "true" || darkModePreference;
-}
-
-export default function Header({ user }) {
-  const [isDarkMode, setIsDarkMode] = useState(() => getDarkMode());
-
+export default function Header({ user, isDarkMode, setIsDarkMode }) {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
     localStorage.setItem("darkMode", isDarkMode.toString());

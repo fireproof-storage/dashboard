@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import { Outlet, redirect, useLoaderData } from "react-router-dom";
 import { fireproof } from "use-fireproof";
 import { authResult } from "../auth";
 import { SYNC_DB_NAME } from "../pages/databases/show";
 import Sidebar from "../components/Sidebar"
 import Header from "../components/Header"
+
+const DarkModeContext = createContext()
 
 const reservedDbNames: string[] = [
   `fp.${SYNC_DB_NAME}`,
@@ -55,6 +57,18 @@ async function getIndexedDBNamesWithQueries(): Promise<
   }
 }
 
+export function useDarkMode() {
+  const context = useContext(DarkModeContext)
+  if (!context) throw new Error('Darkmode context used outside of the Provider')
+  return context.isDarkMode
+}
+
+function getDarkMode() {
+  const storedDarkMode = localStorage.getItem("darkMode");
+  const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)").matches
+  return storedDarkMode === "true" || darkModePreference;
+}
+
 export default function Layout() {
   const { databases, user } = useLoaderData<{
     databases: { name: string; queries: any[] }[];
@@ -63,6 +77,7 @@ export default function Layout() {
 
   const [showEmailModal, setShowEmailModal] = useState(user.publicMetadata.marketingOptIn === undefined);
   const [emailPreference, setEmailPreference] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => getDarkMode());
 
   const handleEmailPreference = async () => {
     try {
@@ -85,43 +100,45 @@ export default function Layout() {
   };
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-fp-bg-00">
-      {showEmailModal && (
-        <div className="fixed inset-0 backdrop-blur-sm z-50 flex items-center justify-center text-fp-p">
-          <div className="bg-fp-bg-00 border border-fp-dec-00 px-8 py-6 rounded-fp-s shadow-lg max-w-lg w-full">
-            <h2 className="font-semibold text-[34px] mb-4">Email Preferences</h2>
-            <p className="mb-4 text-fp-s text-[16px]">Would you like to receive emails from us?</p>
-            <div className="flex items-start gap-2 mb-6">
-              <input
-                type="checkbox"
-                id="emailPreference"
-                checked={emailPreference}
-                onChange={(e) => setEmailPreference(e.target.checked)}
-                className="w-[28px] h-[28px] cursor-pointer mt-[-2px] accent-fp-a-01"
-              />
-              <label htmlFor="emailPreference" className="text-[16px] text-fp-s cursor-pointer hover:text-fp-p">
-                Yes, I'd like to receive (occasional, genuinely informative) emails from Fireproof.
-              </label>
-            </div>
-            <div className="flex justify-end gap-2">
-              <button
-                type="button"
-                onClick={handleEmailPreference}
-                className="px-5 py-2 bg-fp-p font-medium text-fp-bg-00 rounded-fp-s hover:opacity-60"
-              >
-                Confirm
-              </button>
+    <DarkModeContext.Provider value={{ isDarkMode }}>
+      <div className="flex h-screen w-full overflow-hidden bg-fp-bg-00">
+        {showEmailModal && (
+          <div className="fixed inset-0 backdrop-blur-sm z-50 flex items-center justify-center text-fp-p">
+            <div className="bg-fp-bg-00 border border-fp-dec-00 px-8 py-6 rounded-fp-s shadow-lg max-w-lg w-full">
+              <h2 className="font-semibold text-[34px] mb-4">Email Preferences</h2>
+              <p className="mb-4 text-fp-s text-[16px]">Would you like to receive emails from us?</p>
+              <div className="flex items-start gap-2 mb-6">
+                <input
+                  type="checkbox"
+                  id="emailPreference"
+                  checked={emailPreference}
+                  onChange={(e) => setEmailPreference(e.target.checked)}
+                  className="w-[28px] h-[28px] cursor-pointer mt-[-2px] accent-fp-a-01"
+                />
+                <label htmlFor="emailPreference" className="text-[16px] text-fp-s cursor-pointer hover:text-fp-p">
+                  Yes, I'd like to receive (occasional, genuinely informative) emails from Fireproof.
+                </label>
+              </div>
+              <div className="flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={handleEmailPreference}
+                  className="px-5 py-2 bg-fp-p font-medium text-fp-bg-00 rounded-fp-s hover:opacity-60"
+                >
+                  Confirm
+                </button>
+              </div>
             </div>
           </div>
+        )}
+        <Sidebar databases={databases} />
+        <div className="flex flex-col flex-1 overflow-hidden">
+          <Header user={user} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+          <main className="flex-1 overflow-y-auto p-[20px]">
+            <Outlet context={{ user }} />
+          </main>
         </div>
-      )}
-      <Sidebar databases={databases} />
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <Header user={user} />
-        <main className="flex-1 overflow-y-auto p-[20px]">
-          <Outlet context={{ user }} />
-        </main>
       </div>
-    </div>
+    </DarkModeContext.Provider>
   );
 }
