@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { MapFn, useFireproof } from "use-fireproof";
 import { EditableCodeHighlight } from "../../components/CodeHighlight";
 import DynamicTable from "../../components/DynamicTable";
+import Button from "../../components/Button"
 import { headersForDocs } from "../../components/dynamicTableHelpers";
 
 type AnyMapFn = MapFn<object>;
@@ -70,18 +71,20 @@ export default function Query() {
         language="javascript"
       />
       <div className="flex gap-[14px] mt-[14px] justify-end">
-        <button
-          className="flex items-center justify-center gap-[5px] py-2 h-[38px] rounded-fp-s min-w-[105px] bg-fp-bg-00 border border-fp-dec-02 font-medium hover:opacity-60"
+        <Button
+          variation="secondary"
+          style="min-w-[105px]"
           onClick={runTempQuery}
         >
           Query
-        </button>
-        <button
-          className="flex items-center justify-center gap-[5px] py-2 h-[38px] rounded-fp-s min-w-[105px] bg-fp-p font-medium text-fp-bg-00 hover:opacity-60"
+        </Button>
+        <Button
+          variation="primary"
+          style="min-w-[105px]"
           onClick={saveTempQuery}
         >
           Save
-        </button>
+        </Button>
       </div>
 
       {userCodeError ? (

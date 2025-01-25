@@ -5,6 +5,7 @@ import { authResult } from "../auth";
 import { SYNC_DB_NAME } from "../pages/databases/show";
 import Sidebar from "../components/Sidebar"
 import Header from "../components/Header"
+import Button from "../components/Button"
 
 const DarkModeContext = createContext()
 
@@ -120,13 +121,13 @@ export default function Layout() {
                 </label>
               </div>
               <div className="flex justify-end gap-2">
-                <button
+                <Button
+                  variation="primary"
                   type="button"
                   onClick={handleEmailPreference}
-                  className="px-5 py-2 bg-fp-p font-medium text-fp-bg-00 rounded-fp-s hover:opacity-60"
                 >
                   Confirm
-                </button>
+                </Button>
               </div>
             </div>
           </div>
