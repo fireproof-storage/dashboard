@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { MapFn, useFireproof } from "use-fireproof";
 import { EditableCodeHighlight } from "../../components/CodeHighlight";
 import DynamicTable from "../../components/DynamicTable";
-import Button from "../../components/Button"
+import { Button } from "../../components/Button"
 import { headersForDocs } from "../../components/dynamicTableHelpers";
 
 type AnyMapFn = MapFn<object>;

@@ -5,7 +5,7 @@ import { authResult } from "../auth";
 import { SYNC_DB_NAME } from "../pages/databases/show";
 import Sidebar from "../components/Sidebar"
 import Header from "../components/Header"
-import Button from "../components/Button"
+import { Button } from "../components/Button"
 
 const DarkModeContext = createContext()
 

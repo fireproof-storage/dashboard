@@ -4,12 +4,14 @@ type ButtonProps<T extends ElementType> = {
   children: ReactNode;
   tag?: T; // "button" | "a" | any other valid HTML tag
   variation?: "primary" | "secondary" | "tertiary" | "destructive";
+  size?: string;
   style?: string; // additional custom styles
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLElement>;
 } & React.ComponentPropsWithoutRef<T>; 
 
-const baseStyles = "inline-flex items-center justify-center shrink-0 whitespace-nowrap gap-[5px] py-[11px] px-[14px] h-[38px] leading-[16px] font-medium rounded-fp-s cursor-pointer";
+const baseStylesButton = "inline-flex items-center justify-center shrink-0 whitespace-nowrap gap-[5px] py-[11px] px-[14px] h-[38px] leading-[16px] font-medium rounded-fp-s cursor-pointer";
+const baseStylesIconButton = "inline-flex items-center justify-center shrink-0 whitespace-nowrap p-[7px] h-[38px] w-[38px] rounded-fp-s cursor-pointer";
 
 const buttonStyles = {
   primary: {
@@ -30,7 +32,7 @@ const buttonStyles = {
   },
 }
 
-export default function Button<T extends ElementType = "button">({
+export function Button<T extends ElementType = "button">({
   children,
   tag = "button",
   variation = "primary",
@@ -44,7 +46,37 @@ export default function Button<T extends ElementType = "button">({
 
   const typeStyles = isDarkMode ? buttonStyles[variation].dark : buttonStyles[variation].light;
   const disabledStyles = disabled ? "opacity-50 pointer-events-none" : ""
-  const combinedStyles = baseStyles + " " + typeStyles + " " + disabledStyles + " " + style;
+  const combinedStyles = baseStylesButton + " " + typeStyles + " " + disabledStyles + " " + style;
+
+  return (
+    <Component
+      className={combinedStyles}
+      onClick={onClick}
+      disabled={disabled}
+      {...rest}
+    >
+     {children}
+   </Component >
+  );
+}
+
+export function IconButton<T extends ElementType = "button">({
+  children,
+  tag = "button",
+  variation = "primary",
+  style = "",
+  size = "38",
+  disabled = false,
+  onClick,
+  ...rest
+}: ButtonProps<T>) {
+  const isDarkMode = useDarkMode()
+  const Component = tag;
+
+  const typeStyles = isDarkMode ? buttonStyles[variation].dark : buttonStyles[variation].light;
+  const disabledStyles = disabled ? "opacity-50 pointer-events-none" : ""
+  const sizeStyles = size ? `h-[${size}] w-[${size}]` : ""
+  const combinedStyles = baseStylesIconButton + " " + typeStyles + " " + disabledStyles + " " + sizeStyles + " " + style;
 
   return (
     <Component

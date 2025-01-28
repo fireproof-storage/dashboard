@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { Link, useParams } from "react-router-dom";
 import { useFireproof } from "use-fireproof";
 import DynamicTable from "../../components/DynamicTable";
-import Button from "../../components/Button"
+import { Button } from "../../components/Button"
 import { headersForDocs } from "../../components/dynamicTableHelpers";
 import { truncateDbName } from "../../components/Sidebar";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Form, redirect, useSubmit } from "react-router-dom";
 import { fireproof } from "use-fireproof";
-import Button from "../../components/Button"
+import { Button } from "../../components/Button"
 
 export async function Action({ request }) {
   const dbName = (await request.json()).dbName;
