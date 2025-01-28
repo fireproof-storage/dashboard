@@ -74,16 +74,16 @@ export default function Query() {
         <Button
           variation="secondary"
           style="min-w-[105px]"
-          onClick={runTempQuery}
+          onClick={saveTempQuery}
         >
-          Query
+          Save
         </Button>
         <Button
           variation="primary"
           style="min-w-[105px]"
-          onClick={saveTempQuery}
+          onClick={runTempQuery}
         >
-          Save
+          Query
         </Button>
       </div>
 
