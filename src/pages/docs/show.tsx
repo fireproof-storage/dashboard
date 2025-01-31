@@ -57,7 +57,7 @@ export default function Document() {
         <nav className="text-fp-s flex-grow">
           <Link
             to={`/fp/databases/${name}`}
-            className="font-semibold break-all hover:underline hover:text-fp-p"
+            className="text-14-bold break-all hover:underline hover:text-fp-p"
           >
             {name}
           </Link>

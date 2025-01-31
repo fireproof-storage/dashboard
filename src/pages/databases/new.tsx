@@ -25,7 +25,7 @@ export default function New() {
 
   return (
     <div className="px-[28px] py-[45px] bg-fp-bg-01 rounded-fp-l text-fp-p">
-      <h3 className="text-fp-p font-semibold text-[20px]">
+      <h3 className="text-fp-p text-20">
         New Database Name:
       </h3>
 
@@ -43,7 +43,7 @@ export default function New() {
             type="text"
             placeholder="New database name..."
             autoFocus
-            className="w-full py-2 px-3 bg-fp-bg-00 border border-fp-dec-00 rounded-fp-s text-sm font-medium text-fp-p placeholder-fp-p placeholder:opacity-50 focus:outline-none focus:ring-1 focus:ring-fp-dec-02 focus:border-transparent transition duration-200 ease-in-out"
+            className="w-full py-2 px-3 bg-fp-bg-00 border border-fp-dec-00 rounded-fp-s text-14 text-fp-p placeholder-fp-p placeholder:opacity-50 focus:outline-none focus:ring-1 focus:ring-fp-dec-02 focus:border-transparent transition duration-200 ease-in-out"
           />
         </div>
         <Button

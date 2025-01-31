@@ -113,7 +113,8 @@
   }
 
   /* temporary hack to fix dark highlight.js theme */
-  .dark .language-json code {
+  .dark .language-json code,
+  .dark .language-javascript code {
     filter: brightness(2.5) contrast(0.6);
   }
 

@@ -156,7 +156,7 @@ function TableView({ name }: { name: string }) {
             className="flex items-center cursor-pointer"
             onClick={() => setShowQuickstart(showQuickstart => !showQuickstart)}
           >
-            <h3 className="font-bold text-[20px] flex-grow select-none">Quickstart</h3>
+            <h3 className="text-20 flex-grow select-none">Quickstart</h3>
             <svg 
               width="14"
               height="7"
@@ -173,9 +173,9 @@ function TableView({ name }: { name: string }) {
           </div>
           {showQuickstart && (
             <div className="mt-4">
-              <div className="flex border-b border-fp-dec-00 text-fp-p mb-4">
+              <div className="flex border-b border-fp-dec-00 text-fp-p text-14 mb-4">
                 <button
-                  className={`px-4 py-2 font-medium border-b-2 select-none ${
+                  className={`px-4 py-2 border-b-2 select-none ${
                     activeTab === "react"
                       ? "border-fp-a-03 text-fp-a-03" 
                       : "border-transparent"
@@ -185,7 +185,7 @@ function TableView({ name }: { name: string }) {
                   React
                 </button>
                 <button
-                  className={`px-4 py-2 font-medium border-b-2 select-none ${
+                  className={`px-4 py-2 border-b-2 select-none ${
                     activeTab === "vanilla"
                       ? " border-fp-a-03 text-fp-a-03"
                       : "border-transparent"
@@ -196,7 +196,7 @@ function TableView({ name }: { name: string }) {
                 </button>
               </div>
 
-                <pre className="bg-fp-bg-00 p-[12px] rounded-fp-s border border-fp-dec-00 text-xs overflow-x-auto">
+                <pre className="bg-fp-bg-00 p-[12px] rounded-fp-s border border-fp-dec-00 text-code overflow-x-auto">
                   {activeTab === "react" &&
 `import { useFireproof } from "use-fireproof";
 import { connect } from "@fireproof/cloud";
@@ -244,7 +244,7 @@ export default function App() {
         <nav className="max-[500px] h-[38px] flex-grow flex items-center flex-wrap">
           <Link
             to={`/fp/databases/${name}`}
-            className="font-semibold text-fp-p hover:underline truncate max-w-[150px]"
+            className="text-14-bold text-fp-p hover:underline truncate max-w-[150px]"
           >
             {truncateDbName(name, 12)}
           </Link>
@@ -280,7 +280,7 @@ export default function App() {
                     }}
                   >
                     <div className="p-4">
-                      <h3 className="font-bold mb-2">Share Database:</h3>
+                      <h3 className="text-14-bold mb-2">Share Database:</h3>
                       <Button
                         variation="primary"
                         onClick={copyToClipboard}
@@ -392,8 +392,8 @@ export default function App() {
 
       <>
         {docs.length === 0 ? (
-          <div className="m-2 mb-[60px] mt-14 text-center text-[20px] opacity-60 font-semibold text-balance @[575px]:mt-20">
-            No documents found. <Link to={`/fp/databases/${name}/docs/new`} className="font-semibold underline">Create a new document</Link> to get started.
+          <div className="m-2 mb-[60px] mt-14 text-center text-20 opacity-60 text-balance @[575px]:mt-20">
+            No documents found. <Link to={`/fp/databases/${name}/docs/new`} className="border-b border-fp-s">Create&nbsp;a&nbsp;new&nbsp;document</Link> to get started.
           </div>
         ) : (
           <DynamicTable

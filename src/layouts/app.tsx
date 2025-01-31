@@ -106,17 +106,17 @@ export default function Layout() {
         {showEmailModal && (
           <div className="fixed inset-0 backdrop-blur-sm z-50 flex items-center justify-center text-fp-p">
             <div className="bg-fp-bg-00 border border-fp-dec-00 px-8 py-6 rounded-fp-s shadow-lg max-w-lg w-full">
-              <h2 className="font-semibold text-[34px] mb-4">Email Preferences</h2>
-              <p className="mb-4 text-fp-s text-[16px]">Would you like to receive emails from us?</p>
+              <h2 className="text-34 mb-4">Email Preferences</h2>
+              <p className="mb-4 text-fp-s text-16">Would you like to receive emails from us?</p>
               <div className="flex items-start gap-2 mb-6">
                 <input
                   type="checkbox"
                   id="emailPreference"
                   checked={emailPreference}
                   onChange={(e) => setEmailPreference(e.target.checked)}
-                  className="w-[28px] h-[28px] cursor-pointer mt-[-2px] accent-fp-a-01"
+                  className="w-[28px] h-[28px] cursor-pointer mt-[-2px] accent-fp-a-02"
                 />
-                <label htmlFor="emailPreference" className="text-[16px] text-fp-s cursor-pointer hover:text-fp-p">
+                <label htmlFor="emailPreference" className="text-16 text-fp-s cursor-pointer hover:text-fp-p">
                   Yes, I'd like to receive (occasional, genuinely informative) emails from Fireproof.
                 </label>
               </div>

@@ -15,20 +15,20 @@ export default function DynamicTable({
   return (
     <div className="relative mt-[40px] overflow-x-scroll">
       <table className="w-full text-left text-fp-p border-collapse">
-        <thead className="text-[11px] uppercase relative z-10">
+        <thead className="relative z-10">
           <tr key={"header" + Math.random()}>
             {headers.map((header: string) => (
               <th
                 key={header}
                 scope="col"
-                className="px-[15px] py-[8px] font-semibold text-fp-dec-02"
+                className="px-[15px] py-[8px] text-11 text-fp-dec-02"
               >
                 {header === '_id' ? 'document id' : header}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="bg-fp-bg-00 border border-fp-dec-00 font-medium">
+        <tbody className="bg-fp-bg-00 border border-fp-dec-00 text-14">
           {rows.map((fields: any) => (
             <tr
               key={fields._id}
@@ -42,7 +42,7 @@ export default function DynamicTable({
                   <th
                     key={header}
                     scope="row"
-                    className="px-[15px] py-[12px] text-inherit font-medium whitespace-nowrap"
+                    className="px-[15px] py-[12px] text-14 whitespace-nowrap"
                   >
                     {formatTableCellContent(fields[header])}
                   </th>

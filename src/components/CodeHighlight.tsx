@@ -17,14 +17,12 @@ function HighlightedCode({
 }) {
   const highlightedCode = hljs.highlight(code, { language }).value;
   return (
-    <pre className={`language-${language} overflow-x-auto`}>
+    <pre className={`language-${language} overflow-x-auto text-code`}>
       <code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
     </pre>
   );
 }
 const codeStyle = {
-  fontFamily: '"Fira code", "Fira Mono", monospace',
-  fontSize: 14,
   backgroundColor: "var(--fp-color-background-00)",
   borderRadius: "var(--fp-radius-small)",
   border: "1px solid var(--fp-color-decorative-00)",
@@ -39,7 +37,7 @@ export function CodeHighlight({
   language?: string;
 }): JSX.Element {
   return (
-    <div className="p-2" style={codeStyle}>
+    <div className="p-2 text-code" style={codeStyle}>
       <HighlightedCode code={code} language={language} />
     </div>
   );
@@ -87,6 +85,7 @@ export function EditableCodeHighlight({
       padding={10}
       style={codeStyle}
       autoFocus
+      className="text-code"
     />
   );
 }

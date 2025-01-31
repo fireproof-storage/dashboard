@@ -32,7 +32,7 @@ export default function ChangesHistory() {
         <nav className="text-fp-s">
           <Link
             to={`/fp/databases/${name}`}
-            className="font-semibold break-all hover:underline hover:text-fp-p"
+            className="text-14-bold break-all hover:underline hover:text-fp-p"
           >
             {name}
           </Link>
@@ -43,7 +43,7 @@ export default function ChangesHistory() {
       {!!rows.length ? (
         <DynamicTable dbName={name} headers={headers} rows={rows} />
         ) : (
-        <div className="m-2 mb-[60px] mt-[80px] text-center text-[20px] opacity-60 font-semibold text-balance">
+        <div className="m-2 mb-[60px] mt-[80px] text-center text-20 opacity-60 text-balance">
           No history found.
         </div>
         )

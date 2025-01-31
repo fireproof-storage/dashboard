@@ -48,7 +48,7 @@ export default function Query() {
         <nav className="text-fp-s">
           <Link
             to={`/fp/databases/${name}`}
-            className="font-semibold break-all hover:underline hover:text-fp-p"
+            className="text-14-bold break-all hover:underline hover:text-fp-p"
           >
             {name}
           </Link>
@@ -57,7 +57,7 @@ export default function Query() {
         </nav>
       </div>
 
-      <h2 className="text-[20px] font-bold mb-[12px] mt-[32px]">
+      <h2 className="text-20 mb-[12px] mt-[32px]">
         Query Editor
       </h2>
       <p className="mb-[20px]">
@@ -89,7 +89,7 @@ export default function Query() {
 
       {userCodeError ? (
         <div className="mt-4 border border-fp-red p-4 pb-6 rounded-fp-s">
-          <h3 className="text-fp-red font-bold text-[20px] mb-2">Error:</h3>
+          <h3 className="text-fp-red text-20 mb-2">Error:</h3>
           <p className="text-fp-s">{userCodeError}</p>
         </div>
       ) : (

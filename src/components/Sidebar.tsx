@@ -36,7 +36,7 @@ export default function Sidebar({ databases }) {
 
   return (
     <>
-    {/* Mobile Menu Button - Hidden when sidebar is open */}
+      {/* Mobile Menu Button - Hidden when sidebar is open */}
       {!isSidebarOpen && (
         <button
           onClick={() => setIsSidebarOpen(isOpen => !isOpen)}
@@ -68,7 +68,7 @@ export default function Sidebar({ databases }) {
       <div className="flex h-[60px] text-fp-p items-center px-5 flex-shrink-0 justify-between">
         <Link
           to="/fp/databases"
-          className="flex items-center gap-2 text-[16px] font-semibold"
+          className="flex items-center gap-2 text-14-heading"
           onClick={() => setIsSidebarOpen(false)}
         >
           <img
@@ -76,7 +76,7 @@ export default function Sidebar({ databases }) {
             alt="Fireproof Logo"
             className="h-6 w-6"
           />
-          <span>Fireproof Dashboard</span>
+          <span className="text-l">Fireproof Dashboard</span>
         </Link>
 
         {/* Close button for mobile */}
@@ -103,10 +103,10 @@ export default function Sidebar({ databases }) {
 
       {/* Sidebar nav */}
       <div className="flex-1 overflow-y-auto">
-        <nav className="grid gap-4 px-[20px] py-4 font-medium">
+        <nav className="grid gap-4 px-[20px] py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-[16px]">
-              <span className="font-semibold text-fp-dec-02 text-[11px] uppercase">Databases</span>
+            <div className="flex items-center gap-2">
+              <span className="text-fp-dec-02 text-11">Databases</span>
             </div>
             <IconButton
               type="primary"
@@ -130,27 +130,6 @@ export default function Sidebar({ databases }) {
                 <path d="M5 12H19" />
               </svg>
             </IconButton>
-            {/* <Link
-                            data-id="15"
-                            className="inline-flex items-center justify-center rounded bg-fp-s p-[7px] text-fp-bg-00 transition hover:opacity-60"
-                            to="/fp/databases/new"
-                            onClick={() => setIsSidebarOpen(false)}
-                          >
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            >
-                              <path d="M12 5V19" />
-                              <path d="M5 12H19" />
-                            </svg>
-                          </Link > */}
           </div>
           <div className="grid gap-2">
             {databases.map((db) => (
@@ -158,7 +137,7 @@ export default function Sidebar({ databases }) {
                 <div className="flex items-center justify-between w-full">
                   <button
                     onClick={() => navigateToDatabase(db.name)}
-                    className="flex-grow text-left rounded text-[16px] text-fp-p p-[8px] hover:bg-fp-bg-01"
+                    className="flex-grow text-left rounded text-16 text-fp-p p-[8px] hover:bg-fp-bg-01"
                   >
                     <span title={db.name}>{truncateDbName(db.name, 20)}</span>
                   </button>
@@ -198,8 +177,8 @@ export default function Sidebar({ databases }) {
                       key={link.to}
                       to={`/fp/databases/${db.name}${link.to}`}
                       className={({ isActive }) =>
-                        `mb-[4px] block rounded pr-[8px] pl-[20px] py-[8px] leading-[25px] hover:bg-fp-bg-01 hover:text-fp-p ${
-                          isActive ? "text-fp-p font-bold bg-fp-bg-01" : "text-fp-s"
+                        `mb-[4px] block rounded pr-[8px] pl-[20px] py-[8px] text-14 hover:bg-fp-bg-01 hover:text-fp-p ${
+                          isActive ? "text-fp-p text-14-bold bg-fp-bg-01" : "text-fp-s"
                         }`
                       }
                       onClick={() => setIsSidebarOpen(false)}
@@ -208,13 +187,13 @@ export default function Sidebar({ databases }) {
                     </NavLink>
                   ))}
                   {db.queries.length > 0 && (
-                    <div className="text-sm pl-[20px] mt-[16px]">
-                      <span className="opacity-40">Saved Queries:</span>
+                    <div className="pl-[20px] mt-[16px]">
+                      <span className="text-11 text-fp-dec-02 px-[14px] mb-[8px]">Saved Queries:</span>
                       {db.queries.map((query, index) => (
                         <NavLink
                           key={index}
                           to={`/fp/databases/${db.name}/query/${query._id}`}
-                          className="mt-[16px] block rounded px-[12px] py-[8px] leading-[25px] hover:bg-fp-bg-01"
+                          className="mt-[4px] block rounded px-[14px] py-[8px] text-14 hover:bg-fp-bg-01"
                         >
                           {query.name || `Query ${index + 1}`}
                         </NavLink>

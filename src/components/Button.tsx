@@ -10,7 +10,7 @@ type ButtonProps<T extends ElementType> = {
   onClick?: React.MouseEventHandler<HTMLElement>;
 } & React.ComponentPropsWithoutRef<T>; 
 
-const baseStylesButton = "inline-flex items-center justify-center shrink-0 whitespace-nowrap gap-[5px] py-[11px] px-[14px] h-[38px] leading-[16px] font-medium rounded-fp-s cursor-pointer";
+const baseStylesButton = "inline-flex items-center justify-center shrink-0 whitespace-nowrap gap-[5px] py-[11px] px-[14px] h-[38px] text-14 rounded-fp-s cursor-pointer";
 const baseStylesIconButton = "inline-flex items-center justify-center shrink-0 whitespace-nowrap p-[7px] h-[38px] w-[38px] rounded-fp-s cursor-pointer";
 
 const buttonStyles = {

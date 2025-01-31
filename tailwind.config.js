@@ -14,7 +14,7 @@ export default {
         xl: "20px",
         l: "16px",
         m: "14px",
-        s: "12px",
+        s: "13px",
         xs: "11px",
       },
       lineHeight: {
@@ -22,7 +22,7 @@ export default {
         xl: "25px",
         l: "24px",
         m: "22px",
-        s: "16px",
+        s: "17px",
         xs: "14px",
       },
       letterSpacing: {
