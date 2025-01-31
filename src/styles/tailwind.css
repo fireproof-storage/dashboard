@@ -3,6 +3,34 @@
 @tailwind utilities;
 
 @layer base {
+  @font-face {
+    font-family: "Geist Mono";
+    src: url("/fonts/GeistMono-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Geist";
+    src: url("/fonts/GeistVF.woff2") format("woff2-variations");
+    font-weight: 600 700;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Inter Tight";
+    src: url("/fonts/InterTight-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Inter Tight";
+    src: url("/fonts/InterTight-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+  }
+
   :root {
     --fp-color-primary: rgba(44,44,44,1);
     --fp-color-secondary: rgba(44,44,44,1);
@@ -21,6 +49,10 @@
 
     --fp-radius-large: 20px;
     --fp-radius-small: 4px;
+
+    --font-family-main: "Geist";
+    --font-family-body: "Inter Tight";
+    --font-family-mono: "Geist Mono";
   }
 
   .dark {
@@ -41,11 +73,41 @@
   }
 }
 
-@layer base {
-  /* * {
-    @apply border-border;
-  } */
+@layer utilities {
+  .text-34 {
+    @apply text-xxl leading-xxl font-main font-bold tracking-tighter;
+  }
 
+  .text-20 {
+    @apply text-xl leading-xl font-main font-semibold tracking-tight;
+  }
+
+  .text-16 {
+    @apply text-l leading-l font-body font-medium tracking-wide;
+  }
+
+  .text-14-heading {
+    @apply text-m leading-l font-main font-semibold tracking-tight;
+  }
+
+  .text-14 {
+    @apply text-m leading-m font-body font-medium tracking-wide;
+  }
+
+  .text-14-bold {
+    @apply text-m leading-m font-body font-bold tracking-wide;
+  }
+
+  .text-11 {
+    @apply text-xs leading-xs font-main font-semibold tracking-wide uppercase;
+  }
+
+  .text-code {
+    @apply text-s leading-s font-mono font-medium tracking-wide;
+  }
+}
+
+@layer base {
   :root {
     background-color: var(--fp-color-background-00);
   }
@@ -57,17 +119,18 @@
 
   body {
     /* @apply bg-[--background] text-[--foreground]; */
+    font-family: var(--font-family-body), "Inter", "sans-serif;";
+    font-weight: 500;
+    letter-spacing: 0.02em;
     font-size: 14px;
     color: var(--fp-color-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    /* @apply font-heading; */
+  code, pre {
+    font-family: "Geist Mono";
   }
 }
 

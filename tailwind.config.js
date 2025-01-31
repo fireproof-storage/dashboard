@@ -5,8 +5,35 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        heading: ["var(--font-heading)", ...fontFamily.sans],
-        body: ["var(--font-body)", ...fontFamily.mono],
+        main: ["var(--font-family-main)", "Inter", "sans-serif"],
+        body: ["var(--font-family-body)", "Inter", "sans-serif"],
+        mono: ["var(--font-family-mono)", "monospace"],
+      },
+      fontSize: {
+        xxl: "34px",
+        xl: "20px",
+        l: "16px",
+        m: "14px",
+        s: "12px",
+        xs: "11px",
+      },
+      lineHeight: {
+        xxl: "42px",
+        xl: "25px",
+        l: "24px",
+        m: "22px",
+        s: "16px",
+        xs: "14px",
+      },
+      letterSpacing: {
+        tighter: "-0.04em",
+        tight: "-0.02em",
+        wide: "0.02em",
+      },
+      fontWeight: {
+        medium: 500,
+        semibold: 600,
+        bold: 700,
       },
       colors: {
         "fp-p": "var(--fp-color-primary)",
