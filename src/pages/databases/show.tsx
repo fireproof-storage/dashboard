@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useParams } from "react-router-dom";
 import { useFireproof } from "use-fireproof";
+import hljs from "highlight.js";
+import javascript from "highlight.js/lib/languages/javascript";
 import DynamicTable from "../../components/DynamicTable";
 import { Button } from "../../components/Button"
 import { headersForDocs } from "../../components/dynamicTableHelpers";
@@ -11,6 +13,47 @@ import { truncateDbName } from "../../components/Sidebar";
 export const DEFAULT_ENDPOINT =
   "fireproof://cloud.fireproof.direct?getBaseUrl=https://storage.fireproof.direct/";
 export const SYNC_DB_NAME = "fp_sync";
+
+hljs.registerLanguage("javascript", javascript);
+
+const highlightReact = (remoteName) => {
+  const code = `import { useFireproof } from "use-fireproof";
+import { connect } from "@fireproof/cloud";
+
+export default function App() {
+  const { database, useLiveQuery, useDocument } = useFireproof("my_db");
+  connect(database, '${remoteName}');
+  const { docs } = useLiveQuery("_id");
+
+  const [newDoc, setNewDoc, saveNewDoc] = useDocument({ input: "" });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (newDoc.input) {
+      await saveNewDoc();
+      setNewDoc(); // Reset for new entry
+    }
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          value={newDoc.input}
+          onChange={(e) => setNewDoc({ input: e.target.value })}
+        />
+        <button>Add</button>
+      </form>
+      <ul>
+        {docs.map((doc) => (
+          <li key={doc._id}>{JSON.stringify(doc)}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}`
+  return hljs.highlight(code, { language: 'javascript' }).value
+}
 
 export default function Show() {
   const { name, endpoint } = useParams();
@@ -24,6 +67,7 @@ function TableView({ name }: { name: string }) {
   const { useLiveQuery, database } = useFireproof(name);
   const [showConnectionInfo, setShowConnectionInfo] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [copyQuickstart, setCopyQuickstart] = useState(false);
   const [showActions, setShowActions] = useState(false);
   const [showQuickstart, setShowQuickstart] = useState(false);
   const [activeTab, setActiveTab] = useState<"react" | "vanilla">("react");
@@ -104,6 +148,19 @@ function TableView({ name }: { name: string }) {
       () => {
         setCopySuccess(true);
         setTimeout(() => setCopySuccess(false), 2000);
+      },
+      (err) => console.error("Could not copy text: ", err)
+    );
+  };
+
+  const copyQuickstartCode = (e: React.MouseEvent) => {
+    const targ = e.target.closest('code') || e.target.previousElementSibling?.closest('code') || e.target.nextElementSibling?.closest('code');
+    const text = targ?.innerText;
+    if (!text) return;
+    navigator.clipboard.writeText(text.trimStart()).then(
+      () => {
+        setCopyQuickstart(true);
+        setTimeout(() => setCopyQuickstart(false), 1500);
       },
       (err) => console.error("Could not copy text: ", err)
     );
@@ -196,43 +253,25 @@ function TableView({ name }: { name: string }) {
                 </button>
               </div>
 
-                <pre className="bg-fp-bg-00 p-[12px] rounded-fp-s border border-fp-dec-00 text-code overflow-x-auto">
-                  {activeTab === "react" &&
-`import { useFireproof } from "use-fireproof";
-import { connect } from "@fireproof/cloud";
-
-export default function App() {
-  const { database, useLiveQuery, useDocument } = useFireproof("my_db");
-  connect(database, '${remoteName}');
-  const { docs } = useLiveQuery("_id");
-
-  const [newDoc, setNewDoc, saveNewDoc] = useDocument({ input: "" });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (newDoc.input) {
-      await saveNewDoc();
-      setNewDoc(); // Reset for new entry
-    }
-  };
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          value={newDoc.input}
-          onChange={(e) => setNewDoc({ input: e.target.value })}
-        />
-        <button>Add</button>
-      </form>
-      <ul>
-        {docs.map((doc) => (
-          <li key={doc._id}>{JSON.stringify(doc)}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}`}
+                <pre className="language-javascript relative min-h-14 bg-fp-bg-00 p-[12px] rounded-fp-s border border-fp-dec-00 text-code overflow-x-auto">
+                <button
+                  className="absolute top-1 right-1 p-2 select-none text-fp-dec-02 hover:text-fp-p"
+                  onClick={copyQuickstartCode}
+                >
+                  {copyQuickstart ? 
+                  (
+                    <svg className="pointer-events-none text-fp-p" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M7 15L12 19.5L20.5 8.5" />
+                    </svg>
+                  ) : (
+                    <svg className="pointer-events-none" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke="currentColor" strokeWidth="2" d="M17.5 8V5.5C17.5 4.94772 17.0523 4.5 16.5 4.5H7C6.44772 4.5 6 4.94772 6 5.5V17.5C6 18.0523 6.44772 18.5 7 18.5H10.5M10.5 18.5V10C10.5 9.44772 10.9477 9 11.5 9H21C21.5523 9 22 9.44772 22 10V22.5C22 23.0523 21.5523 23.5 21 23.5H11.5C10.9477 23.5 10.5 23.0523 10.5 22.5V18.5Z" />
+                    </svg>
+                  )}
+                </button>
+                  {activeTab === "react" && (
+                    <code dangerouslySetInnerHTML={{ __html: highlightReact(remoteName) }} />
+                  )}
                   {activeTab === "vanilla" && ``}
                 </pre>
             </div>
