@@ -44,7 +44,7 @@ export default function App() {
 }
 
 export default function Quickstart({ remoteName }) {
-  const [copyQuickstart, setCopyQuickstart] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [showQuickstart, setShowQuickstart] = useState(false);
   const [activeTab, setActiveTab] = useState<"react" | "vanilla">("react");
 
@@ -55,8 +55,8 @@ export default function Quickstart({ remoteName }) {
     if (!text) return;
     navigator.clipboard.writeText(text.trimStart()).then(
       () => {
-        setCopyQuickstart(true);
-        setTimeout(() => setCopyQuickstart(false), 1500);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
       },
       (err) => console.error("Could not copy text: ", err)
     );
@@ -65,7 +65,7 @@ export default function Quickstart({ remoteName }) {
   return (
     <div className="mb-4 border border-fp-dec-00 rounded-fp-s">
       <div
-        className="flex items-center cursor-pointer p-[20px]"
+        className="flex items-center cursor-pointer p-main"
         onClick={() => setShowQuickstart(showQuickstart => !showQuickstart)}
       >
         <h3 className="text-20 flex-grow select-none">Quickstart</h3>
@@ -83,7 +83,7 @@ export default function Quickstart({ remoteName }) {
         </svg>
       </div>
       {showQuickstart && (
-        <div className="mt-4 px-[20px] pb-[20px]">
+        <div className="mt-4 px-main pb-main">
           <div
             className="flex border-b border-fp-dec-00 text-fp-p text-14 mb-4"
   
@@ -114,7 +114,7 @@ export default function Quickstart({ remoteName }) {
               className="absolute top-1 right-1 p-2 select-none text-fp-dec-02 hover:text-fp-p z-10"
               onClick={copyToClipboard}
             >
-              {copyQuickstart ? 
+              {copied ? 
               (
                 <svg className="pointer-events-none text-fp-p" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M7 15L12 19.5L20.5 8.5" />

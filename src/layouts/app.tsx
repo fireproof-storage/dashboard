@@ -135,7 +135,7 @@ export default function Layout() {
         <Sidebar databases={databases} />
         <div className="flex flex-col flex-1 overflow-hidden">
           <Header user={user} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-          <main className="flex-1 overflow-y-auto p-[20px]">
+          <main className="flex-1 overflow-y-auto p-main">
             <Outlet context={{ user }} />
           </main>
         </div>

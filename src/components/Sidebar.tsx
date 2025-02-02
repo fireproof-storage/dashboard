@@ -40,7 +40,7 @@ export default function Sidebar({ databases }) {
       {!isSidebarOpen && (
         <button
           onClick={() => setIsSidebarOpen(isOpen => !isOpen)}
-          className="md:hidden absolute top-2 left-6 z-50 rounded-md"
+          className="md:hidden absolute top-2 left-6 z-50"
         >
           <svg
             className="text-fp-p"
@@ -65,7 +65,7 @@ export default function Sidebar({ databases }) {
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       } md:translate-x-0 flex flex-col border-r border-fp-dec-00 overflow-hidden`}
     >
-      <div className="flex h-[60px] text-fp-p items-center px-5 flex-shrink-0 justify-between">
+      <div className="flex h-[56px] text-fp-p items-center px-main flex-shrink-0 justify-between">
         <Link
           to="/fp/databases"
           className="flex items-center gap-2 text-14-heading"
@@ -103,7 +103,7 @@ export default function Sidebar({ databases }) {
 
       {/* Sidebar nav */}
       <div className="flex-1 overflow-y-auto">
-        <nav className="grid gap-4 px-[20px] py-4">
+        <nav className="grid gap-4 p-main">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-fp-dec-02 text-11">Databases</span>
@@ -137,7 +137,7 @@ export default function Sidebar({ databases }) {
                 <div className="flex items-center justify-between w-full">
                   <button
                     onClick={() => navigateToDatabase(db.name)}
-                    className="flex-grow text-left rounded text-16 text-fp-p p-[8px] hover:bg-fp-bg-01"
+                    className="flex-grow text-left text-16 text-fp-p p-[8px] hover:bg-fp-bg-01"
                   >
                     <span title={db.name}>{truncateDbName(db.name, 20)}</span>
                   </button>
@@ -177,7 +177,7 @@ export default function Sidebar({ databases }) {
                       key={link.to}
                       to={`/fp/databases/${db.name}${link.to}`}
                       className={({ isActive }) =>
-                        `mb-[4px] block rounded pr-[8px] pl-[20px] py-[8px] text-14 hover:bg-fp-bg-01 hover:text-fp-p ${
+                        `mb-[4px] block rounded-fp-s pr-[8px] pl-main py-[8px] text-14 hover:bg-fp-bg-01 hover:text-fp-p ${
                           isActive ? "text-fp-p text-14-bold bg-fp-bg-01" : "text-fp-s"
                         }`
                       }
@@ -187,13 +187,13 @@ export default function Sidebar({ databases }) {
                     </NavLink>
                   ))}
                   {db.queries.length > 0 && (
-                    <div className="pl-[20px] mt-[16px]">
+                    <div className="pl-main mt-[16px]">
                       <span className="text-11 text-fp-dec-02 px-[14px] mb-[8px]">Saved Queries:</span>
                       {db.queries.map((query, index) => (
                         <NavLink
                           key={index}
                           to={`/fp/databases/${db.name}/query/${query._id}`}
-                          className="mt-[4px] block rounded px-[14px] py-[8px] text-14 hover:bg-fp-bg-01"
+                          className="mt-[4px] block rounded-fp-s px-[14px] py-[8px] text-14 hover:bg-fp-bg-01"
                         >
                           {query.name || `Query ${index + 1}`}
                         </NavLink>

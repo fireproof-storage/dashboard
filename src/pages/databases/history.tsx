@@ -27,7 +27,7 @@ export default function ChangesHistory() {
   const rows = history.rows.map((row) => row.value).reverse();
 
   return (
-    <div className="p-[28px] bg-fp-bg-01 text-fp-p rounded-fp-l">
+    <div className="p-card bg-fp-bg-01 text-fp-p rounded-fp-l">
       <div className="flex justify-between items-center h-[38px]">
         <nav className="text-fp-s">
           <Link

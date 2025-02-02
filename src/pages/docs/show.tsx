@@ -52,7 +52,7 @@ export default function Document() {
   const title = id ? `Edit document: ${_id}` : "Create new document";
 
   return (
-    <div className="@container p-[28px] bg-fp-bg-01 text-fp-p rounded-fp-l">
+    <div className="@container p-card bg-fp-bg-01 text-fp-p rounded-fp-l">
       <div className="flex justify-end items-center min-h-[38px] gap-y-[20px] flex-wrap sm:flex-nowrap">
         <nav className="text-fp-s flex-grow">
           <Link

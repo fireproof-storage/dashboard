@@ -24,7 +24,7 @@ export default function New() {
   };
 
   return (
-    <div className="px-[28px] py-[45px] bg-fp-bg-01 rounded-fp-l text-fp-p">
+    <div className="px-card py-[45px] bg-fp-bg-01 rounded-fp-l text-fp-p">
       <h3 className="text-fp-p text-20">
         New Database Name:
       </h3>

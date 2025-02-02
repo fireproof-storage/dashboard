@@ -11,7 +11,7 @@ export default function Header({ user, isDarkMode, setIsDarkMode }) {
   };
 
   return (
-    <header className="flex h-14 items-center gap-4 border-b border-fp-dec-00 px-[20px] flex-shrink-0">
+    <header className="flex h-14 items-center gap-4 border-b border-fp-dec-00 px-main flex-shrink-0">
       <h1 className="flex-1"></h1>
       <div className="flex items-center gap-[8px] text-14-heading text-fp-s sm:gap-[18px]">
         <a

@@ -51,9 +51,13 @@ export default {
         "fp-red": "var(--fp-color-red)",
         "fp-green": "var(--fp-color-green)",
       },
+      padding: {
+        main: '20px',
+        card: '28px',
+      },
       borderRadius: {
-        "fp-s": "var(--fp-radius-small)",
-        "fp-l": "var(--fp-radius-large)",
+        "fp-s": "4px",
+        "fp-l": "20px",
       },
       keyframes: {
         "accordion-down": {

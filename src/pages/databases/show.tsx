@@ -148,7 +148,7 @@ function TableView({ name }: { name: string }) {
   }, []);
 
   return (
-    <div className="@container p-[28px] bg-fp-bg-01 rounded-fp-l text-fp-p">
+    <div className="@container p-card bg-fp-bg-01 rounded-fp-l text-fp-p">
       {/* Quickstart */}
       {connection && <Quickstart remoteName={remoteName} />}
 
