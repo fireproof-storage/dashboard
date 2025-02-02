@@ -3,9 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useParams } from "react-router-dom";
 import { useFireproof } from "use-fireproof";
-import hljs from "highlight.js";
-import javascript from "highlight.js/lib/languages/javascript";
 import DynamicTable from "../../components/DynamicTable";
+import Quickstart from "../../components/Quickstart"
 import { Button } from "../../components/Button"
 import { headersForDocs } from "../../components/dynamicTableHelpers";
 import { truncateDbName } from "../../components/Sidebar";
@@ -13,47 +12,6 @@ import { truncateDbName } from "../../components/Sidebar";
 export const DEFAULT_ENDPOINT =
   "fireproof://cloud.fireproof.direct?getBaseUrl=https://storage.fireproof.direct/";
 export const SYNC_DB_NAME = "fp_sync";
-
-hljs.registerLanguage("javascript", javascript);
-
-const highlightReact = (remoteName) => {
-  const code = `import { useFireproof } from "use-fireproof";
-import { connect } from "@fireproof/cloud";
-
-export default function App() {
-  const { database, useLiveQuery, useDocument } = useFireproof("my_db");
-  connect(database, '${remoteName}');
-  const { docs } = useLiveQuery("_id");
-
-  const [newDoc, setNewDoc, saveNewDoc] = useDocument({ input: "" });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (newDoc.input) {
-      await saveNewDoc();
-      setNewDoc(); // Reset for new entry
-    }
-  };
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          value={newDoc.input}
-          onChange={(e) => setNewDoc({ input: e.target.value })}
-        />
-        <button>Add</button>
-      </form>
-      <ul>
-        {docs.map((doc) => (
-          <li key={doc._id}>{JSON.stringify(doc)}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}`
-  return hljs.highlight(code, { language: 'javascript' }).value
-}
 
 export default function Show() {
   const { name, endpoint } = useParams();
@@ -67,10 +25,7 @@ function TableView({ name }: { name: string }) {
   const { useLiveQuery, database } = useFireproof(name);
   const [showConnectionInfo, setShowConnectionInfo] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
-  const [copyQuickstart, setCopyQuickstart] = useState(false);
   const [showActions, setShowActions] = useState(false);
-  const [showQuickstart, setShowQuickstart] = useState(false);
-  const [activeTab, setActiveTab] = useState<"react" | "vanilla">("react");
   const connectionInfoRef = useRef<HTMLDivElement>(null);
   const actionsRef = useRef<HTMLDivElement>(null);
   const [connectionInfoPosition, setConnectionInfoPosition] = useState({
@@ -153,19 +108,6 @@ function TableView({ name }: { name: string }) {
     );
   };
 
-  const copyQuickstartCode = (e: React.MouseEvent) => {
-    const targ = e.target.closest('code') || e.target.previousElementSibling?.closest('code') || e.target.nextElementSibling?.closest('code');
-    const text = targ?.innerText;
-    if (!text) return;
-    navigator.clipboard.writeText(text.trimStart()).then(
-      () => {
-        setCopyQuickstart(true);
-        setTimeout(() => setCopyQuickstart(false), 1500);
-      },
-      (err) => console.error("Could not copy text: ", err)
-    );
-  };
-
   const handleConnectionInfoClick = () => {
     if (connectionInfoRef.current) {
       const rect = connectionInfoRef.current.getBoundingClientRect();
@@ -207,77 +149,8 @@ function TableView({ name }: { name: string }) {
 
   return (
     <div className="@container p-[28px] bg-fp-bg-01 rounded-fp-l text-fp-p">
-      {connection && (
-        <div className="mb-4 border border-fp-dec-00 rounded-fp-s p-[20px]">
-          <div
-            className="flex items-center cursor-pointer"
-            onClick={() => setShowQuickstart(showQuickstart => !showQuickstart)}
-          >
-            <h3 className="text-20 flex-grow select-none">Quickstart</h3>
-            <svg 
-              width="14"
-              height="7"
-              viewBox="0 0 14 7"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className={`h-4 w-4 transform ${
-                showQuickstart ? "rotate-180 text-fp-p" : "text-fp-dec-02"
-              }`}
-            >
-              <path d="M1 1L7 6L13 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-
-          </div>
-          {showQuickstart && (
-            <div className="mt-4">
-              <div className="flex border-b border-fp-dec-00 text-fp-p text-14 mb-4">
-                <button
-                  className={`px-4 py-2 border-b-2 select-none ${
-                    activeTab === "react"
-                      ? "border-fp-a-03 text-fp-a-03" 
-                      : "border-transparent"
-                  }`}
-                  onClick={() => setActiveTab("react")}
-                >
-                  React
-                </button>
-                <button
-                  className={`px-4 py-2 border-b-2 select-none ${
-                    activeTab === "vanilla"
-                      ? " border-fp-a-03 text-fp-a-03"
-                      : "border-transparent"
-                  }`}
-                  onClick={() => setActiveTab("vanilla")}
-                >
-                  Vanilla JS
-                </button>
-              </div>
-
-                <pre className="language-javascript relative min-h-14 bg-fp-bg-00 p-[12px] rounded-fp-s border border-fp-dec-00 text-code overflow-x-auto">
-                <button
-                  className="absolute top-1 right-1 p-2 select-none text-fp-dec-02 hover:text-fp-p"
-                  onClick={copyQuickstartCode}
-                >
-                  {copyQuickstart ? 
-                  (
-                    <svg className="pointer-events-none text-fp-p" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M7 15L12 19.5L20.5 8.5" />
-                    </svg>
-                  ) : (
-                    <svg className="pointer-events-none" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke="currentColor" strokeWidth="2" d="M17.5 8V5.5C17.5 4.94772 17.0523 4.5 16.5 4.5H7C6.44772 4.5 6 4.94772 6 5.5V17.5C6 18.0523 6.44772 18.5 7 18.5H10.5M10.5 18.5V10C10.5 9.44772 10.9477 9 11.5 9H21C21.5523 9 22 9.44772 22 10V22.5C22 23.0523 21.5523 23.5 21 23.5H11.5C10.9477 23.5 10.5 23.0523 10.5 22.5V18.5Z" />
-                    </svg>
-                  )}
-                </button>
-                  {activeTab === "react" && (
-                    <code dangerouslySetInnerHTML={{ __html: highlightReact(remoteName) }} />
-                  )}
-                  {activeTab === "vanilla" && ``}
-                </pre>
-            </div>
-          )}
-        </div>
-      )}
+      {/* Quickstart */}
+      {connection && <Quickstart remoteName={remoteName} />}
 
       <div className="flex justify-end items-start mb-4 gap-4 @[575px]:flex-nowrap flex-wrap">
         <nav className="max-[500px] h-[38px] flex-grow flex items-center flex-wrap">
@@ -429,22 +302,20 @@ function TableView({ name }: { name: string }) {
         </div>
       </div>
 
-      <>
-        {docs.length === 0 ? (
-          <div className="m-2 mb-[60px] mt-14 text-center text-20 opacity-60 text-balance @[575px]:mt-20">
-            No documents found. <Link to={`/fp/databases/${name}/docs/new`} className="border-b border-fp-s">Create&nbsp;a&nbsp;new&nbsp;document</Link> to get started.
-          </div>
-        ) : (
-          <DynamicTable
-            headers={headers}
-            th="key"
-            link={["_id"]}
-            rows={docs}
-            dbName={name}
-            onDelete={deleteDocument}
-          />
-        )}
-      </>
+      {docs.length === 0 ? (
+        <div className="m-2 mb-[60px] mt-14 text-center text-20 opacity-60 text-balance @[575px]:mt-20">
+          No documents found. <Link to={`/fp/databases/${name}/docs/new`} className="border-b border-fp-s">Create&nbsp;a&nbsp;new&nbsp;document</Link> to get started.
+        </div>
+      ) : (
+        <DynamicTable
+          headers={headers}
+          th="key"
+          link={["_id"]}
+          rows={docs}
+          dbName={name}
+          onDelete={deleteDocument}
+        />
+      )}
     </div>
   );
 }
