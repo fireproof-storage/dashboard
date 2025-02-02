@@ -24,8 +24,8 @@ function HighlightedCode({
 }
 const codeStyle = {
   backgroundColor: "var(--fp-color-background-00)",
-  borderRadius: "var(--fp-radius-small)",
   border: "1px solid var(--fp-color-decorative-00)",
+  borderRadius: "4px",
   overflowX: "auto",
 };
 

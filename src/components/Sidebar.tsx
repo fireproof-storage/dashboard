@@ -26,6 +26,7 @@ export default function Sidebar({ databases }) {
 
   const navigateToDatabase = (dbName: string) => {
     navigate(`/fp/databases/${dbName}`);
+    setOpenMenu(dbName);
     setIsSidebarOpen(false); // Close sidebar on mobile after navigation
   };
 
