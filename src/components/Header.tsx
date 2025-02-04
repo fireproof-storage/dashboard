@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
-export default function Header({ user, isDarkMode, setIsDarkMode }) {
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
-    localStorage.setItem("darkMode", isDarkMode.toString());
-  }, [isDarkMode]);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(isDarkMode => !isDarkMode);
-  };
+export default function Header({ user }) {
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <header className="flex h-14 items-center gap-4 border-b border-fp-dec-00 px-main flex-shrink-0">

@@ -24,6 +24,8 @@ import DatabasesConnect, {
 import Login, { loader as loginLoader } from "./pages/login";
 import "./styles/tailwind.css";
 
+import { DarkModeProvider } from "./contexts/DarkModeContext";
+
 const routes = createRoutesFromElements(
   <Route>
     <Route path="/" element={<Index />} loader={indexLoader} />
@@ -55,7 +57,11 @@ const rootElement = import.meta.env.VITE_CHROME_EXTENSION
   : document.getElementById("root");
 
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
+  ReactDOM.createRoot(rootElement).render(
+    <DarkModeProvider>
+      <RouterProvider router={router} />
+    </DarkModeProvider>
+  );
 } else {
   console.error("Root element not found");
 }

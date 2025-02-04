@@ -1,4 +1,4 @@
-import { useDarkMode } from '../layouts/app'
+import { useDarkMode } from '../contexts/DarkModeContext'
 
 type ButtonProps<T extends ElementType> = {
   children: ReactNode;
@@ -41,7 +41,7 @@ export function Button<T extends ElementType = "button">({
   onClick,
   ...rest
 }: ButtonProps<T>) {
-  const isDarkMode = useDarkMode()
+  const isDarkMode = useDarkMode().isDarkMode
   const Component = tag;
 
   const typeStyles = isDarkMode ? buttonStyles[variation].dark : buttonStyles[variation].light;
@@ -70,7 +70,7 @@ export function IconButton<T extends ElementType = "button">({
   onClick,
   ...rest
 }: ButtonProps<T>) {
-  const isDarkMode = useDarkMode()
+  const isDarkMode = useDarkMode().isDarkMode
   const Component = tag;
 
   const typeStyles = isDarkMode ? buttonStyles[variation].dark : buttonStyles[variation].light;
