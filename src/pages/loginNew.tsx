@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../components/Button";
-import { useDarkMode, toggleDarkMode } from "../contexts/DarkModeContext";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 const slides = [
  { text: "This is going to be the way to\u00A0make apps.", author: "Boorad / Brad Anderson", role: "startup founder"},
@@ -17,6 +17,7 @@ export default function Login() {
   const [emailPreference, setEmailPreference] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const isDarkMode = useDarkMode().isDarkMode;
+  // TO-DO remove this line when auth is ready
   const toggleDarkMode = useDarkMode().toggleDarkMode;
 
   function incSlide() {
