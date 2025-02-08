@@ -1,5 +1,3 @@
-import { fontFamily } from "tailwindcss/defaultTheme";
-
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -52,8 +50,8 @@ export default {
         "fp-green": "var(--fp-color-green)",
       },
       padding: {
-        main: '20px',
-        card: '28px',
+        main: "20px",
+        card: "28px",
       },
       borderRadius: {
         "fp-s": "4px",
@@ -68,11 +66,33 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        dash500: {
+          "0%": { "stroke-dashoffset": "-500" },
+          "100%": { "stroke-dashoffset": "0" },
+        },
+        dash2000: {
+          "0%": { "stroke-dashoffset": "-2000" },
+          "30%": { "stroke-dashoffset": "-2000" },
+          "100%": { "stroke-dashoffset": "0" },
+        },
+        show: {
+          "0%": { opacity: 0 },
+          "70%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "stroke-dash-500": "dash500 1.5s ease forwards",
+        "stroke-dash-2000": "dash2000 3s ease forwards",
+        "show": "show 3s ease forwards",
       },
+      screens: {
+      "xs": "460px",
+      "lg": "1160px",
+      "xxl": "1600px",
+    },
     },
   },
   plugins: [require("@tailwindcss/container-queries")],
