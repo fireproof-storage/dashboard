@@ -10,7 +10,7 @@ import { connect } from "@fireproof/cloud";
 
 export default function App() {
   const { database, useLiveQuery, useDocument } = useFireproof("my_db");
-  connect(database, '${remoteName}');
+  connect(database, "${remoteName}");
   const { docs } = useLiveQuery("_id");
 
   const [newDoc, setNewDoc, saveNewDoc] = useDocument({ input: "" });
@@ -40,7 +40,7 @@ export default function App() {
     </div>
   );
 }`
-  return hljs.highlight(code, { language: 'javascript' }).value
+  return hljs.highlight(code, { language: "javascript" }).value;
 }
 
 export default function Quickstart({ remoteName }) {
@@ -49,8 +49,8 @@ export default function Quickstart({ remoteName }) {
   const [activeTab, setActiveTab] = useState<"react" | "vanilla">("react");
 
   const copyToClipboard = (e: React.MouseEvent) => {
-    const wrap = e.target.closest('pre') || e.target.previousElementSibling?.closest('pre') || e.target.nextElementSibling?.closest('pre');
-    const targ = wrap?.querySelector('code')
+    const wrap = e.target.closest("pre") || e.target.previousElementSibling?.closest("pre") || e.target.nextElementSibling?.closest("pre");
+    const targ = wrap?.querySelector("code");
     const text = targ?.innerText;
     if (!text) return;
     navigator.clipboard.writeText(text.trimStart()).then(

@@ -9,9 +9,9 @@ function getDarkMode() {
 }
 
 export function useDarkMode() {
-  const context = useContext(DarkModeContext)
-  if (!context) throw new Error('Darkmode context used outside of the Provider')
-  return context
+  const context = useContext(DarkModeContext);
+  if (!context) throw new Error("Darkmode context used outside of the Provider");
+  return context;
 }
 
 export const DarkModeProvider = ({ children }) => {
