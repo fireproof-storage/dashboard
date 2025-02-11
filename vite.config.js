@@ -41,11 +41,11 @@ export default defineConfig({
         alias: {
           "react-router": path.resolve(
             __dirname,
-            "../../packages/react-router/index.ts"
+            "../../packages/react-router/index.ts",
           ),
           "react-router-dom": path.resolve(
             __dirname,
-            "../../packages/react-router-dom/index.tsx"
+            "../../packages/react-router-dom/index.tsx",
           ),
         },
       }

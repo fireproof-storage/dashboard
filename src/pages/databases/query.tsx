@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { MapFn, useFireproof } from "use-fireproof";
 import { EditableCodeHighlight } from "../../components/CodeHighlight";
 import DynamicTable from "../../components/DynamicTable";
+import { Button } from "../../components/Button"
 import { headersForDocs } from "../../components/dynamicTableHelpers";
 
 type AnyMapFn = MapFn<object>;
@@ -42,12 +43,12 @@ export default function Query() {
   }
 
   return (
-    <div className="p-6 bg-[--muted]">
-      <div className="flex justify-between items-center mb-4">
-        <nav className="text-lg text-[--muted-foreground]">
+    <div className="p-card bg-fp-bg-01 rounded-fp-l">
+      <div className="flex justify-between items-center mb-4 h-[38px]">
+        <nav className="text-fp-s">
           <Link
             to={`/fp/databases/${name}`}
-            className="font-medium text-[--foreground] hover:underline"
+            className="text-14-bold break-all hover:underline hover:text-fp-p"
           >
             {name}
           </Link>
@@ -56,40 +57,40 @@ export default function Query() {
         </nav>
       </div>
 
-      <div className="mb-6 p-4 bg-[--accent]/20 rounded-lg border-2 border-[--accent] shadow-md">
-        <h2 className="text-xl font-bold text-[--accent-foreground] mb-2">
-          Query Editor
-        </h2>
-        <p className="text-[--muted-foreground]">
-          Enter your map function below. This function will be used to query the
-          database.
-        </p>
+      <h2 className="text-20 mb-[12px] mt-[32px]">
+        Query Editor
+      </h2>
+      <p className="mb-[20px]">
+        Enter your map function below. This function will be used to query the
+        database.
+      </p>
+
+      <EditableCodeHighlight
+        onChange={editorChanged}
+        code={editorCode}
+        language="javascript"
+      />
+      <div className="flex gap-[14px] mt-[14px] justify-end">
+        <Button
+          variation="secondary"
+          style="min-w-[105px]"
+          onClick={saveTempQuery}
+        >
+          Save
+        </Button>
+        <Button
+          variation="primary"
+          style="min-w-[105px]"
+          onClick={runTempQuery}
+        >
+          Query
+        </Button>
       </div>
-      <>
-        <EditableCodeHighlight
-          onChange={editorChanged}
-          code={editorCode}
-          language="javascript"
-        />
-        <div className="flow-root p-4">
-          <button
-            className="float-right rounded-lg py-2 px-4 ml-6 bg-[--accent] text-[--accent-foreground] hover:bg-[--accent]/80"
-            onClick={runTempQuery}
-          >
-            Query
-          </button>
-          <button
-            className="float-right rounded-lg py-2 px-4 ml-6 bg-[--muted] text-[--muted-foreground] hover:bg-[--accent]/80"
-            onClick={saveTempQuery}
-          >
-            Save
-          </button>
-        </div>
-      </>
+
       {userCodeError ? (
-        <div className="text-[--destructive] mt-4 p-4 bg-[--destructive]/10 rounded">
-          <h3 className="font-bold">Error:</h3>
-          <p>{userCodeError}</p>
+        <div className="mt-4 border border-fp-red p-4 pb-6 rounded-fp-s">
+          <h3 className="text-fp-red text-20 mb-2">Error:</h3>
+          <p className="text-fp-s">{userCodeError}</p>
         </div>
       ) : (
         <QueryDynamicTable mapFn={editorCodeFnString} name={name} />
@@ -105,6 +106,7 @@ function QueryDynamicTable({ mapFn, name }: { mapFn: string; name: string }) {
   console.log(docs);
   const headers = headersForDocs(docs);
 
+  if (!docs.length) return null;
   return (
     <DynamicTable
       headers={headers}
