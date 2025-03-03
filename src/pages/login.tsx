@@ -88,7 +88,7 @@ export default function Login() {
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div className="absolute scale-[0.85] sm:scale-100 right-[-75px] bottom-[210px] sm:right-[-86px] sm:bottom-[255px]">
+          <div className="absolute scale-[0.85] sm:scale-100 right-[-75px] bottom-[210px] sm:right-[-86px] sm:bottom-[285px]">
             <p className="animate-show absolute max-w-[120px] top-[16px] left-[18px] text-center text-[14px] font-bold text-fp-a-02 leading-[1.3] tracking-[-0.04em] rotate-[-11deg]">Sign in to see your data live!</p>
             <svg className="text-fp-a-02" width="161" height="67" viewBox="0 0 161 67" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
