@@ -64,7 +64,7 @@ export default function Login() {
               </div>
             </div>
           </ClerkProvider>
-          <svg className="absolute scale-[0.7] sm:scale-100 right-[-68px] bottom-[60px] sm:right-[-60px] sm:bottom-[65px] text-fp-a-02 pointer-events-none" width="187" height="186" viewBox="0 0 187 186" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className="absolute scale-[0.7] sm:scale-100 right-[-68px] bottom-[60px] sm:right-[-60px] sm:bottom-[95px] text-fp-a-02 pointer-events-none" width="187" height="186" viewBox="0 0 187 186" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               className="animate-stroke-dash-500" 
               d="M44.0833 175.38C119.188 155.145 160.007 78.4817 142.027 1.9999" 
