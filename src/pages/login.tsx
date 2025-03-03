@@ -21,8 +21,6 @@ export default function Login() {
   const [emailPreference, setEmailPreference] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const isDarkMode = useDarkMode().isDarkMode;
-  // TO-DO remove this line when auth is ready
-  const toggleDarkMode = useDarkMode().toggleDarkMode;
 
   function incSlide() {
     setActiveSlide(cur => cur === slides.length - 1 ? 0 : ++cur);
