@@ -148,11 +148,11 @@ function TableView({ name }: { name: string }) {
   }, []);
 
   return (
-    <div className="@container p-card bg-fp-bg-01 rounded-fp-l text-fp-p">
+    <div className="p-card bg-fp-bg-01 rounded-fp-l text-fp-p">
       {/* Quickstart */}
       {connection && <Quickstart remoteName={remoteName} />}
 
-      <div className="flex justify-end items-start mb-4 gap-4 @[575px]:flex-nowrap flex-wrap">
+      <div className="flex justify-end items-start mb-4 gap-4 min-[575px]:flex-nowrap flex-wrap">
         <nav className="max-[500px] h-[38px] flex-grow flex items-center flex-wrap">
           <Link
             to={`/fp/databases/${name}`}
@@ -208,7 +208,7 @@ function TableView({ name }: { name: string }) {
           )}
 
           {/* Mobile Actions Dropdown */}
-          <div className="relative block @[575px]:hidden" ref={actionsRef}>
+          <div className="relative block min-[575px]:hidden" ref={actionsRef}>
             <Button
                 variation="primary"
                 style="min-w-[108px] pl-[24px]"
@@ -266,7 +266,7 @@ function TableView({ name }: { name: string }) {
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden @[575px]:flex gap-2">
+          <div className="hidden min-[575px]:flex gap-2">
             <Button
                 variation="destructive"
                 onClick={handleDeleteDatabase}
@@ -303,7 +303,7 @@ function TableView({ name }: { name: string }) {
       </div>
 
       {docs.length === 0 ? (
-        <div className="m-2 mb-[60px] mt-14 text-center text-20 opacity-60 text-balance @[575px]:mt-20">
+        <div className="m-2 mb-[60px] mt-14 text-center text-20 opacity-60 text-balance min-[575px]:mt-20">
           No documents found. <Link to={`/fp/databases/${name}/docs/new`} className="border-b border-fp-s">Create&nbsp;a&nbsp;new&nbsp;document</Link> to get started.
         </div>
       ) : (
