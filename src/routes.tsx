@@ -7,6 +7,7 @@ import {
   createMemoryRouter,
   RouterProvider,
 } from "react-router-dom";
+import { ClerkProvider, SignUp } from "@clerk/clerk-react";
 import App, { loader as appLoader } from "./layouts/app";
 import DatabasesHistory from "./pages/databases/history";
 import DatabasesIndex from "./pages/databases/index";
@@ -21,15 +22,27 @@ import Index, { loader as indexLoader } from "./pages/index";
 import DatabasesConnect, {
   loader as connectLoader,
 } from "./pages/databases/connect";
-import Login, { loader as loginLoader } from "./pages/login";
+import { Login, loginLoader } from "./pages/login";
+import { SignUpPage, signupLoader } from "./pages/signup";
 import "./styles/tailwind.css";
 
 import { DarkModeProvider } from "./contexts/DarkModeContext";
+
+declare global {
+  interface ImportMeta {
+    env: {
+      VITE_CHROME_EXTENSION: string;
+      VITE_CLERK_PUBLISHABLE_KEY: string;
+    };
+  }
+}
+
 
 const routes = createRoutesFromElements(
   <Route>
     <Route path="/" element={<Index />} loader={indexLoader} />
     <Route path="/login" element={<Login />} loader={loginLoader} />
+    <Route path="/signup" element={<SignUpPage />} loader={signupLoader} />
     <Route path="/fp/databases" element={<App />} loader={appLoader}>
       <Route index element={<DatabasesIndex />} />
       <Route path="new" element={<DatabasesNew />} action={newDatabaseAction} />
@@ -58,9 +71,11 @@ const rootElement = import.meta.env.VITE_CHROME_EXTENSION
 
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
-    <DarkModeProvider>
-      <RouterProvider router={router} />
-    </DarkModeProvider>
+    <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}>
+      <DarkModeProvider>
+        <RouterProvider router={router} />
+      </DarkModeProvider>
+    </ClerkProvider>
   );
 } else {
   console.error("Root element not found");
