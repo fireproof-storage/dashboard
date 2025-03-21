@@ -1,6 +1,7 @@
 import React, { useContext, useState} from "react";
 import { SignUp } from "@clerk/clerk-react";
 import { DarkModeContext, useDarkMode } from "../contexts/DarkModeContext";
+import { dark } from '@clerk/themes';
 
 const checkIsDarkSchemePreferred = () => window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ?? false;
 
@@ -46,7 +47,7 @@ export function SignUpPage() {
 
         <div className="flex items-center justify-center h-full order-1 lg:order-2">
           <div
-            className={`relative max-w-[445px] p-10 sm:px-[48px] sm:py-[60px] mx-10 my-20 sm:m-14 sm:ml-6 grow-0 rounded-fp-l ${isDarkMode ? "bg-fp-bg-01" : ""}`}
+            className="relative max-w-[445px] p-10 sm:px-[48px] sm:py-[60px] mx-10 my-20 sm:m-14 sm:ml-6 grow-0"
           >
             <svg
               className="max-w-36 sm:max-w-max"
@@ -112,6 +113,7 @@ export function SignUpPage() {
             </div>
             <SignUp
               appearance={{
+                baseTheme: isDarkMode ? dark : undefined,
                 elements: {
                   headerSubtitle: { display: "none" },
                   footer: { display: "none" },

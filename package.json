@@ -12,6 +12,7 @@
   "dependencies": {
     "@clerk/clerk-js": "^5.40.0",
     "@clerk/clerk-react": "^5.19.0",
+    "@clerk/themes": "^2.2.22",
     "@fireproof/cloud": "^0.19.118",
     "@tailwindcss/container-queries": "^0.1.1",
     "highlight.js": "^11.10.0",
