@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useContext, useState} from "react";
 import { SignUp } from "@clerk/clerk-react";
-import { useContext, useState } from "react";
 import { DarkModeContext, useDarkMode } from "../contexts/DarkModeContext";
 
 const checkIsDarkSchemePreferred = () => window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ?? false;
