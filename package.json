@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^0.1.19",
-    "@cloudflare/workers-types": "^4.20250327.0",
+    "@cloudflare/workers-types": "^4.20250529.0",
     "@eslint/js": "^9.16.0",
     "@libsql/client": "^0.14.0",
     "@libsql/kysely-libsql": "^0.4.1",
