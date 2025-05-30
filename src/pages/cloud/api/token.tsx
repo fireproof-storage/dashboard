@@ -11,7 +11,11 @@ export function redirectBackUrl() {
   if (uri.hasParam("token")) {
     const backUrl = URI.from(uri.getParam("back_url", ""));
     if (backUrl.protocol.startsWith("http")) {
-      // console.log("api-RedirectBackUrl", backUrl, window.location.href);
+      const fromUrl = window.location.href;
+      const toUrl = backUrl.toString();
+      console.log("REDIRECT_BACK_URL HANDLER TRIGGERED");
+      console.log("%c FROM: %c" + fromUrl, "background:#333; color:white; font-weight:bold", "background:none; color:blue");
+      console.log("%c TO (COPY THIS): %c" + toUrl, "background:#333; color:lime; font-weight:bold; font-size:14px", "background:none; color:blue; text-decoration:underline; font-size:14px");
       window.location.href = backUrl.toString();
     }
   }
@@ -97,8 +101,44 @@ export function ApiToken() {
         setRedirectCountdown((prev) => {
           if (prev.countdownSecs <= 0) {
             clearInterval(interval);
-
-            window.open("", "_self")?.close();
+            
+            // Log the redirect URL right before the actual redirect
+            const backUrl = URI.from(searchParams.get("back_url") || "");
+            
+            // Get the original redirect URL and the result_id
+            let backUrlString = backUrl.toString();
+            const resultId = searchParams.get("result_id");
+            
+            // CRITICAL FIX: Make sure to include the result_id in the redirect URL
+            // Without this, the client app can't poll for the token
+            let finalRedirectUrl = backUrlString;
+            if (resultId) {
+              // Add the result_id to the URL
+              const separator = backUrlString.includes("?") ? "&" : "?";
+              finalRedirectUrl = `${backUrlString}${separator}result_id=${resultId}`;
+            }
+            
+            // Log what's happening with the token and result_id
+            console.log("%c REDIRECTING BACK TO (with result_id): %c" + finalRedirectUrl, 
+                      "background:#333; color:lime; font-weight:bold; font-size:14px", 
+                      "background:none; color:blue; text-decoration:underline; font-size:14px");
+            
+            console.log("%c TOKEN FLOW INFO: %c The token is NOT passed in URL. Client will poll API with result_id", 
+                      "background:#333; color:yellow; font-weight:bold", 
+                      "background:none; color:black");
+            
+            // Log the important parameters for debugging
+            console.log("TOKEN PARAMETERS (stored server-side):", {
+              token: cloudToken,
+              resultId,
+              ledger: createApiToken.ledger,
+              tenant: createApiToken.tenant,
+              tokenApiEndpoint: `${window.location.origin}/api` // This is where the client should poll
+            });
+            
+            // Use the modified redirect URL that includes the result_id
+            window.location.href = finalRedirectUrl;
+            // window.open("", "_self")?.close();
             // setDoNavigate(true);
             return { ...prev, state: "finished" };
           }
@@ -111,6 +151,11 @@ export function ApiToken() {
   }, [redirectCountdown.state, cloudToken]);
 
   if (cloudToken && redirectCountdown.state === "waiting") {
+    // Log the redirect target URL before starting the timer
+    const backUrl = URI.from(searchParams.get("back_url") || "");
+    const backUrlString = backUrl.toString();
+    console.log("%c REDIRECT TARGET URL (easy to copy): %c" + backUrlString, "background:#333; color:yellow; font-weight:bold", "background:none; color:blue; text-decoration:underline");
+    console.log("TOKEN being sent to client:", cloudToken);
     setRedirectCountdown({ ...redirectCountdown, state: "started" });
   }
 
@@ -282,7 +327,24 @@ export function ApiToken() {
                 Stop
               </button>
             </div>
-            <div>Redirecting in {redirectCountdown.countdownSecs} seconds...</div>
+            <div>
+              <div>Redirecting in {redirectCountdown.countdownSecs} seconds...</div>
+              <div style={{ marginTop: '10px', padding: '8px', border: '1px solid #ccc', backgroundColor: '#f5f5f5' }}>
+                <div><strong>Token Flow Information:</strong></div>
+                <div style={{ marginBottom: '8px' }}>
+                  <p><strong>Result ID:</strong> {searchParams.get("result_id")}</p>
+                  <p><strong>Token is stored server-side</strong> and will be retrieved by client via API polling</p>
+                  <p><strong>Redirect URL:</strong></p>
+                </div>
+                <div style={{ wordBreak: 'break-all', color: 'blue', cursor: 'pointer' }} 
+                     onClick={(e) => { 
+                       navigator.clipboard.writeText(URI.from(searchParams.get("back_url") || "").toString());
+                       alert('Redirect URL copied to clipboard!');
+                     }}>
+                  {URI.from(searchParams.get("back_url") || "").toString()}
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
