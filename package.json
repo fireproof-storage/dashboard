@@ -18,6 +18,7 @@
     "test": "vitest --run",
     "format": "prettier .",
     "check": "pnpm format --write && tsc --noEmit && pnpm lint && pnpm test && pnpm build",
+    "typecheck": "tsc --noEmit",
     "drizzle:libsql": "drizzle-kit push --config ./drizzle.libsql.config.ts",
     "drizzle:d1-local": "drizzle-kit push --config ./drizzle.d1-local-backend.config.ts",
     "drizzle:d1-remote": "drizzle-kit push --config ./drizzle.d1-remote.config.ts"
