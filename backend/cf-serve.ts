@@ -1,5 +1,6 @@
 import { drizzle } from "drizzle-orm/d1";
 import { D1Database, Fetcher, Request as CFRequest, Response as CFResponse } from "@cloudflare/workers-types";
+import { base58btc } from "multiformats/bases/base58";
 import { CORS, createHandler } from "./create-handler.ts";
 import { URI } from "@adviser/cement";
 
@@ -21,7 +22,8 @@ export default {
         let body: string;
         let status = 200;
         try {
-          const jwk = JSON.parse(jwkRaw);
+          const decodedKey = base58btc.decode(jwkRaw);
+          const jwk = JSON.parse(decodedKey.toString());
           body = JSON.stringify({ keys: [jwk] });
         } catch {
           body = "Invalid CLOUD_SESSION_TOKEN_PUBLIC";
