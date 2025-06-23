@@ -72,7 +72,7 @@
     "vite": "^6.1.0",
     "vitest": "^3.2.1",
     "wrangler": "^4.19.1",
-    "zx": "^8.5.3"
+    "zx": "^8.6.0"
   },
   "pnpm": {
     "patchedDependencies": {
